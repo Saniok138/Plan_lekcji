@@ -1,3 +1,5 @@
 <?php
-    unset($_COOKIE["generated"]);
-    header(header: "location: ../index.php");
+setcookie("generated", "", time() - 3600, "/");
+header("Location: ../index.php");
+exit();
+?>
