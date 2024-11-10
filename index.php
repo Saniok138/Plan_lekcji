@@ -9,7 +9,6 @@
     <div class="menu-main">
         <?php 
             if(!isset($_COOKIE["generated"])){
-                setcookie("generated", "TRUE", time() + (86400 * 365),"/");
                 include('./HTML/menu-generation.html');
             }else{
                 include('./HTML/menu-presentation.html');
