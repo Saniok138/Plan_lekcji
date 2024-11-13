@@ -4,7 +4,7 @@
         exit();
     }else{
         echo '<form action="./PHP/generator.php" method="post">
-                <input type="submit" value="Generuj nowy plan">
-            </form>';
+                    <input type="submit" class="presentation" value="Generation">
+                </form>';
     }
 ?>
