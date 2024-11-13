@@ -7,7 +7,7 @@
     <title>GENERATOR</title>
     <link rel="stylesheet" href="./CSS/main-style.css">
 </head>
-<body>
+<body class="background">
     <div class="menu-main">
         <?php 
             include('./PHP/menu-presentation.php');
