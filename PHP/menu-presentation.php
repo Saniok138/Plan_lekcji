@@ -19,8 +19,8 @@
 </form>
 <?php
     if(isset($_SESSION["Admin"])){
-        echo '<form action="./PHP/delete-cookie.php" method="post">
-                <input type="submit" value="usunac plan">
+        echo '<form action="./PHP/delete-session.php" method="post">
+                <input type="submit" value="wylogoj">
             </form>';
     }
 ?>

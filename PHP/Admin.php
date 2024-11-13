@@ -1,7 +1,28 @@
-<?php
-    session_start();
-    $_SESSION["name"] = "Admin";
-    $_SESSION["username"] = "Admin";
-    $_SESSION["role"] = "Admin";
-    $_SESSION["Admin"] = true;
-    header(header: "Location: ../index.php");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>log-in</title>
+    <link rel="stylesheet" href="../CSS/main-style.css">
+</head>
+<body>
+    <div>
+        <form action="" method="post">
+            <input type="text" name="login" class="login">
+            <input type="password" name="password" class="password">
+            <input type="submit" value="log-in" name="login">
+        </form>
+        <?php
+            session_start();
+            if(isset($_POST["login"])){
+                $_SESSION["name"] = "Admin";
+                $_SESSION["username"] = "Admin";
+                $_SESSION["role"] = "Admin";
+                $_SESSION["Admin"] = true;
+                header(header: "Location: ../index.php");
+            }
+        ?>
+    </div>
+</body>
+</html>
