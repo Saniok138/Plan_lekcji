@@ -11,16 +11,20 @@
         <form action="" method="post">
             <input type="text" name="login" class="login">
             <input type="password" name="password" class="password">
-            <input type="submit" value="log-in" name="login">
+            <input type="submit" value="log-in" name="log_in">
         </form>
         <?php
             session_start();
-            if(isset($_POST["login"])){
-                $_SESSION["name"] = "Admin";
-                $_SESSION["username"] = "Admin";
-                $_SESSION["role"] = "Admin";
-                $_SESSION["Admin"] = true;
+            if(isset($_POST["log_in"])){
+                if ($_POST["login"] === "Admin" && $_POST["password"] === "1243") {
+                    $_SESSION["name"] = "Admin";
+                    $_SESSION["username"] = "Admin";
+                    $_SESSION["role"] = "Admin";
+                    $_SESSION["Admin"] = true;
                 header(header: "Location: ../index.php");
+                } else {
+                    echo "Błędny login lub hasło.";
+                }
             }
         ?>
     </div>

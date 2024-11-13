@@ -1,6 +1,12 @@
 body{
-    background-color: lightblue;
+    background-color: #add8e6;
 }
 div{
-    background-color: greenyellow;
+    background-color: #adff2f;
+    border: 12px solid #ADEC8B;
+    border-radius: 20px;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    padding: 20px;
 }
