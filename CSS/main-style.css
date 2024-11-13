@@ -25,77 +25,18 @@ body, html {
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 0;
     right: 0;
-    background: radial-gradient(circle, #ff6b6b, #f06595, #845ec2, #2a9d8f);
+    bottom: 0;
+    background: linear-gradient(45deg, #b64c4c, #bb4e74, #845ec2, #2a9d8f);
     background-size: 200% 200%;
-    animation: pulse 5s infinite alternate;
+    animation: gradientMove 5s infinite alternate;
   }
 
-  @keyframes pulse {
+  @keyframes gradientMove {
     0% {
-      background-size: 150% 50%;
-      opacity: 0.7;
-    }
-    25% {
-        background-size: 125% 75%;
-        opacity: 0.85;
-      }
-    50% {
-      background-size: 100% 100%;
-      opacity: 1;
-    }
-    75% {
-        background-size: 75% 125%;
-        opacity: 0.85;
-      }
-    100% {
-      background-size: 50% 150%;
-      opacity: 0.7;
-    }
-  }
-
-
-/* 
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    color: #fff;
-    background-color: #2a2a2a;
-  /* }
-
-  .background {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    height: 200px;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, #ff6b6b, #f06595, transparent);
-    border-radius: 50%;
-    animation: pulse 2s infinite alternate;
-  }
-
-  @keyframes pulse {
-    0% {
-      width: 200px;
-      height: 200px;
-      opacity: 0.2;
-    }
-    50%{
-      width: 300px;
-      height: 300px;
-      opacity: 0.6;
+      background-position: left bottom;
     }
     100% {
-      width: 400px;
-      height: 400px;
-      opacity: 1;
+      background-position: right top;
     }
-  } */
+  }
