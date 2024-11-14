@@ -1,0 +1,42 @@
+div{
+    background-color: #9a2fff;
+    border: 12px solid #9c63f8;
+    border-radius: 20px;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    padding: 20px;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-color: #2a2a2a;
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #b64c4c, #bb4e74, #845ec2, #2a9d8f);
+    background-size: 200% 200%;
+    animation: gradientMove 5s infinite alternate;
+  }
+
+  @keyframes gradientMove {
+    0% {
+      background-position: left bottom;
+    }
+    100% {
+      background-position: right top;
+    }
+  }
