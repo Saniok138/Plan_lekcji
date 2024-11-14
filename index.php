@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -6,13 +7,14 @@
     <title>GENERATOR</title>
     <link rel="stylesheet" href="./CSS/main-style.css">
 </head>
-<body>
+<body class="background">
     <div class="menu-main">
         <?php 
-            if(!isset($_COOKIE["generated"])){
-                include('./HTML/menu-generation.html');
+            include('./PHP/menu-presentation.php');
+            if(isset($_SESSION["Admin"])){
+                include('./PHP/menu-generation.php');
             }else{
-                include('./HTML/menu-presentation.html');
+                include('./PHP/menu-admin.php');
             }
         ?>
     </div>
