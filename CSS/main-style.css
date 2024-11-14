@@ -66,6 +66,18 @@ select{
     padding: 5px;
 }
 
+table {
+    border-collapse: collapse;
+    width: auto;
+    table-layout: fixed;
+    color: antiquewhite;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
 .text-input{
     background-color: #a340ff;
     border: 4px solid #9c63f8;
