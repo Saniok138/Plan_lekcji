@@ -3,6 +3,7 @@ $host = "localhost";
 $user = "root";
 $password = "";
 $database = "plan_lekcji";
+$conn = mysqli_connect($host, $user, $password, $database);
 if (!$conn) {
 die("Error connect: " . mysqli_connect_error());
 }
