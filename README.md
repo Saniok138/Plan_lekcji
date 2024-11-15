@@ -11,15 +11,15 @@ cd <NAZWA_FOLDERU>"
 
 3) Konfiguracja środowiska: 
 "cp .env.example .env"
-treśc środka
-PORT=3000
+treść środka: 
+"PORT=3000
 DB_HOST=localhost
 DB_PORT=5432
 DB_USER=admin
-DB_PASS=haslo
+DB_PASS=haslo"
 
-4) Uruchomienie projektu
-npm run dev
+4) Uruchomienie projektu: 
+"npm run dev"
 
-5) Dostęp do aplikacji
+5) Dostęp do aplikacji: 
 Po uruchomieniu aplikacji przejdź do http://localhost:3000 (lub innego adresu podanego w pliku .env) w przeglądarce
