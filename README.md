@@ -22,3 +22,4 @@ DB_PASS=haslo
 npm run dev
 
 5) Dostęp do aplikacji
+Po uruchomieniu aplikacji przejdź do http://localhost:3000 (lub innego adresu podanego w pliku .env) w przeglądarce
