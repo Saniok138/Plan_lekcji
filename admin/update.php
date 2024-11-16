@@ -129,9 +129,9 @@ switch ($table) {
             <input type="text" name="numer_k" required>
             <label for="new_numer_k">New Class Number:</label>
             <input type="text" name="new_numer_k" required><br>
-            <label for="wychowawca">Old Tutor:</label>
+            <label for="wychowawca">Old Class Teacher:</label>
             <input type="text" name="wychowawca" required>
-            <label for="new_wychowawca">New Tutor:</label>
+            <label for="new_wychowawca">New Class Teacher:</label>
             <input type="text" name="new_wychowawca" required><br>
             <input name="tables" type="hidden" value="k">
             <input name="update" type="submit" value="Update">
