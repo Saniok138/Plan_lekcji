@@ -19,7 +19,7 @@
                         $_SESSION["username"] = "Admin";
                         $_SESSION["role"] = "Admin";
                         $_SESSION["Admin"] = true;
-                    header(header: "Location: ../admin.php");
+                    header(header: "Location: ../index.php");
                     } else {
                         echo "Błędny login lub hasło.";
                     }
