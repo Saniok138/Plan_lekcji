@@ -116,7 +116,8 @@ switch ($insert) {
           $row = mysqli_fetch_assoc($result);
         $id_p = $row['id_p'];
         $ilosc_godzin = intval($_POST["ilosc_godzin"]);
-        $sql = "INSERT INTO przedmiot_klasa (id_k, id_p, ilosc_godzin) VALUES ($id_k, $id_p, $ilosc_godzin)";
+        $ilosc_grup = intval($_POST["ilosc_grup"]);
+        $sql = "INSERT INTO przedmiot_klasa (id_k, id_p, ilosc_godzin, ilosc_grup) VALUES ($id_k, $id_p, $ilosc_godzin, $ilosc_grup)";
         $result = mysqli_query($conn, $sql);
         header("Location: ../admin.php");
         exit;

@@ -116,7 +116,8 @@ switch ($delete) {
           $row = mysqli_fetch_assoc($result);
         $id_p = $row['id_p'];
         $ilosc_godzin = intval($_POST["ilosc_godzin"]);
-        $sql = "DELETE FROM przedmiot_klasa where id_k=$id_k and id_p=$id_p and ilosc_godzin=$ilosc_godzin";
+        $ilosc_grup = intval($_POST["ilosc_grup"]);
+        $sql = "DELETE FROM przedmiot_klasa where id_k=$id_k and id_p=$id_p and ilosc_godzin=$ilosc_godzin and ilosc_grup=$ilosc_grup";
         $result = mysqli_query($conn, $sql);
         header("Location: ../admin.php");
         exit;

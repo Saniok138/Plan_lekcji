@@ -2,6 +2,7 @@
     <input name="id_k" type="text" required>
     <input name="id_p" type="text" required>
     <input name="ilosc_godzin" type="number" required>
+    <input name="ilosc_grup" value="1" type="number" required>
     <input name="insert" value="pk" type="hidden">
     <button type="submit">Dodaj wiersz</button>
 </form>
@@ -9,6 +10,7 @@
     <input name="id_k" type="text" required>
     <input name="id_p" type="text" required>
     <input name="ilosc_godzin" type="number" required>
+    <input name="ilosc_grup" value="1" type="number" required>
     <input name="delete" value="pk" type="hidden">
     <button type="submit">Usuń wiersz</button>
 </form>

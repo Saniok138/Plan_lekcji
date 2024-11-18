@@ -49,9 +49,12 @@ switch ($table) {
             $result_new_n = $conn->query($select_new_n);
             $new_id_n = mysqli_fetch_assoc($result_new_n)['id_n'];
     
-            $sql = "UPDATE dni_nauczyciele SET id_n=$new_id_n, dni=$new_dni, godzina=$new_godzina WHERE id_n=$old_id_n AND dni=$old_dni AND godzina=$old_godzina";
+            $sql = "UPDATE dni_nauczyciele 
+                    SET id_n=$new_id_n, dni=$new_dni, godzina=$new_godzina 
+                    WHERE id_n=$old_id_n AND dni=$old_dni AND godzina=$old_godzina";
             mysqli_query($conn, $sql);
             header("Location: ../admin.php");
+            exit;
             exit;
         }
         break;
@@ -87,7 +90,9 @@ switch ($table) {
             $result_new_k = $conn->query($select_new_k);
             $new_id_k = mysqli_fetch_assoc($result_new_k)['id_k'];
 
-            $sql = "UPDATE dni_wolne SET id_k=$new_id_k, dni_wolne=$new_dni_wolne WHERE id_k=$old_id_k AND dni_wolne=$old_dni_wolne";
+            $sql = "UPDATE dni_wolne 
+                    SET id_k=$new_id_k, dni_wolne=$new_dni_wolne 
+                    WHERE id_k=$old_id_k AND dni_wolne=$old_dni_wolne";
             mysqli_query($conn, $sql);
             header("Location: ../admin.php");
             exit;
@@ -189,7 +194,9 @@ switch ($table) {
             $new_id_n = mysqli_fetch_assoc($result_new_n)['id_n'];
 
             // Update `nauczyciele_klasa` table
-            $sql = "UPDATE nauczyciele_klasa SET id_k=$new_id_k, id_n=$new_id_n WHERE id_k=$old_id_k AND id_n=$old_id_n";
+            $sql = "UPDATE nauczyciele_klasa 
+                    SET id_k=$new_id_k, id_n=$new_id_n 
+                    WHERE id_k=$old_id_k AND id_n=$old_id_n";
             mysqli_query($conn, $sql);
             header("Location: ../admin.php");
             exit;
@@ -235,7 +242,9 @@ switch ($table) {
             $result_new_p = $conn->query($select_new_p);
             $new_id_p = mysqli_fetch_assoc($result_new_p)['id_p'];
 
-            $sql = "UPDATE nauczyciele_przedmiot SET id_n=$new_id_n, id_p=$new_id_p WHERE id_n=$old_id_n AND id_p=$old_id_p";
+            $sql = "UPDATE nauczyciele_przedmiot 
+                    SET id_n=$new_id_n, id_p=$new_id_p 
+                    WHERE id_n=$old_id_n AND id_p=$old_id_p";
             mysqli_query($conn, $sql);
             header("Location: ../admin.php");
             exit;
@@ -286,6 +295,11 @@ switch ($table) {
             <input type="text" name="old_ilosc_godzin" required>
             <label for="new_ilosc_godzin">New Hours:</label>
             <input type="text" name="new_ilosc_godzin" required><br>
+
+            <label for="old_ilosc_grup">Old Number of Grups:</label>
+            <input type="text" name="old_ilosc_grup" required>
+            <label for="new_ilosc_grup">New Number of Grups:</label>
+            <input type="text" name="new_ilosc_grup" required><br>
             
             <input name="tables" type="hidden" value="pk">
             <input name="update" type="submit" value="Update">
@@ -297,6 +311,8 @@ switch ($table) {
             $new_nazwa = $conn->real_escape_string($_POST["new_nazwa"]);
             $old_ilosc_godzin = intval($_POST["old_ilosc_godzin"]);
             $new_ilosc_godzin = intval($_POST["new_ilosc_godzin"]);
+            $old_ilosc_grup = intval($_POST["old_ilosc_grup"]);
+            $new_ilosc_grup = intval($_POST["new_ilosc_grup"]);
 
             // Fetch `id_k` for old and new class numbers
             $select_old_k = "SELECT id_k FROM klasa WHERE numer_k='$old_numer_k'";
@@ -317,7 +333,9 @@ switch ($table) {
             $new_id_p = mysqli_fetch_assoc($result_new_p)['id_p'];
 
             // Update `przedmiot_klasa` table
-            $sql = "UPDATE przedmiot_klasa SET id_k=$new_id_k, id_p=$new_id_p, ilosc_godzin=$new_ilosc_godzin WHERE id_k=$old_id_k AND id_p=$old_id_p AND ilosc_godzin=$old_ilosc_godzin";
+            $sql = "UPDATE przedmiot_klasa 
+                    SET id_k=$new_id_k, id_p=$new_id_p, ilosc_godzin=$new_ilosc_godzin 
+                    WHERE id_k=$old_id_k AND id_p=$old_id_p AND ilosc_godzin=$old_ilosc_godzin";
             mysqli_query($conn, $sql);
             header("Location: ../admin.php");
             exit;
@@ -354,14 +372,10 @@ switch ($table) {
     case 's':
         echo "sala.php<br>";
         echo '<form action="update.php" method="post">
-            <label for="numer">Old Room Number:</label>
-            <input type="text" name="numer" required>
-            <label for="new_numer">New Room Number:</label>
-            <input type="text" name="new_numer" required><br>
-            <label for="rozmiar">Old Size:</label>
-            <input type="text" name="rozmiar" required>
-            <label for="new_rozmiar">New Size:</label>
-            <input type="text" name="new_rozmiar" required><br>
+            <label for="nr_sali">Old Room Number:</label>
+            <input type="text" name="nr_sali" required>
+            <label for="new_nr_sali">New Room Number:</label>
+            <input type="text" name="new_nr_sali" required><br>
             <label for="typ">Old Type:</label>
             <input type="text" name="typ" required>
             <label for="new_typ">New Type:</label>
@@ -370,13 +384,11 @@ switch ($table) {
             <input name="update" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
-            $numer = $conn->real_escape_string($_POST["numer"]);
-            $new_numer = $conn->real_escape_string($_POST["new_numer"]);
-            $old_rozmiar = intval($_POST["old_rozmiar"]);
-            $new_rozmiar = intval($_POST["new_rozmiar"]);
+            $nr_sali = $conn->real_escape_string($_POST["nr_sali"]);
+            $new_nr_sali = $conn->real_escape_string($_POST["new_nr_sali"]);
             $typ = $conn->real_escape_string($_POST["typ"]);
             $new_typ = $conn->real_escape_string($_POST["new_typ"]);
-            $sql = "UPDATE sala SET numer='$new_numer', rozmiar='$new_rozmiar', typ='$new_typ' WHERE numer='$numer' AND rozmiar='$rozmiar' AND typ='$typ'";
+            $sql = "UPDATE sala SET nr_sali='$new_nr_sali', typ='$new_typ' WHERE nr_sali='$nr_sali' AND typ='$typ'";
             mysqli_query($conn, $sql);
             header("Location: ../admin.php");
             exit;
