@@ -66,6 +66,19 @@ select{
     padding: 5px;
 }
 
+.return:hover{
+    background-color: #8e48ff;
+    border: 4px solid #9c63f8;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 3%;
+    min-width: 100px;
+    color:white;
+    font-size: large;
+    width: 20%;
+    padding: 5px;
+}
+
 table {
     border-collapse: collapse;
     width: auto;
