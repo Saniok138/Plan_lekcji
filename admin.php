@@ -30,6 +30,27 @@ if(!isset($_SESSION["Admin"])){
   if (!$conn) {
   die("Error connect: " . mysqli_connect_error());
   }
+  echo '<form action="admin/update.php" method="post">
+  <h3 style="color: antiquewhite;">Update</h3>
+  <select class="change-classes" name="tables">
+  <option value="k">klasa</option>
+  <option value="n">nauczyciele</option>
+  <option value="p">przedmiot</option>
+  <option value="g">godzina</option>
+  <option value="s">sala</option>
+  <option value="pk">przedmiot_klasa</option>
+  <option value="nk">nauczyciele_klasa</option>
+  <option value="np">nauczyciele_przedmiot</option>
+  <option value="dw">dni_wolne</option>
+  <option value="dn">dni_nauczyciele</option>
+  </select>
+  <input type="submit" class="presentation" name="submit" value="update">
+  </form>';
+
+  echo'<br><br><form action="./index.php" method="post">
+      <input type="submit" class="return" name="submit" value="return">
+  </form>';
+
 
   $option = $_POST["change-classes"] ?? null;
 
@@ -111,28 +132,6 @@ if(!isset($_SESSION["Admin"])){
 
   // echo "<br><br><h3>sala</h3>";
   // include("./admin/sala.php");
-
-  
-  echo '<form action="admin/update.php" method="post">
-  <h3 style="color: antiquewhite;">Update</h3>
-  <select class="change-classes" name="tables">
-  <option value="k">klasa</option>
-  <option value="n">nauczyciele</option>
-  <option value="p">przedmiot</option>
-  <option value="g">godzina</option>
-  <option value="s">sala</option>
-  <option value="pk">przedmiot_klasa</option>
-  <option value="nk">nauczyciele_klasa</option>
-  <option value="np">nauczyciele_przedmiot</option>
-  <option value="dw">dni_wolne</option>
-  <option value="dn">dni_nauczyciele</option>
-  </select>
-  <input type="submit" class="presentation" name="submit" value="update">
-  </form>';
-
-  echo'<br><br><form action="./index.php" method="post">
-      <input type="submit" class="return" name="submit" value="return">
-  </form>';
 }
 ?></div>
 </body>

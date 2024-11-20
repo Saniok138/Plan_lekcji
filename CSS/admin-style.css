@@ -1,21 +1,21 @@
 body, html {
+    display: flex;
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
     font-family: Arial, sans-serif;
     color: #fff;
-    background-color: #2a2a2a;
   }
 
   .background {
-    position: relative;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: linear-gradient(45deg, #b64c4c, #bb4e74, #845ec2, #2a9d8f);
-    background-size: 200% 200%;
+    background-size: cover;
+    background-attachment: fixed;
     animation: gradientMove 5s infinite alternate;
   }
 
@@ -82,12 +82,13 @@ table {
     width: auto;
     table-layout: fixed;
     color: antiquewhite;
-    
+    max-height: 80%;
+    word-wrap: break-word;
 }
 
 th, td {
     text-align: left;
-    padding: 8px;
+    padding: 4px;
 }
 
 .change-classes{
@@ -98,7 +99,8 @@ th, td {
     min-width:fit-content;
     color: antiquewhite;
     font-size: large;
-    border-radius: 7px;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .change-classes:hover{
@@ -109,7 +111,8 @@ th, td {
     min-width:fit-content;
     color: white;
     font-size: large;
-    border-radius: 7px;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .menu-main{
