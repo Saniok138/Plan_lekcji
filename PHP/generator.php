@@ -4,7 +4,7 @@
         header(header: "Location: ../index.php");
         exit();
     }else{
-        header(header: "Location: ../index.php");
+        header(header: "Location: ../admin/Algorytm.php");
         exit();
     }
     // $host = '127.0.0.1';

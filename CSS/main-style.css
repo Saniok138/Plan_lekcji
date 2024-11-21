@@ -136,6 +136,7 @@ th, td {
     border: 4px solid #9c63f8;
     border-radius: 10px;
     text-align: center;
+    min-width: 170px;
     margin-top: 3%;
     color:white;
     font-size: large;
@@ -173,7 +174,6 @@ body, html {
     display: flex;
     font-family: Arial, sans-serif;
     color: #fff;
-    background-color: #2a2a2a;
   }
 
   .background {
@@ -183,7 +183,8 @@ body, html {
     right: 0;
     bottom: 0;
     background: linear-gradient(45deg, #b64c4c, #bb4e74, #845ec2, #2a9d8f);
-    background-size: 200% 200%;
+    background-size: cover;
+    background-attachment: fixed;
     animation: gradientMove 5s infinite alternate;
   }
 

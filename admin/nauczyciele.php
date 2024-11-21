@@ -17,15 +17,7 @@
     <button type="submit">Usuń wiersz</button>
 </form>
 <?php
-echo'<form action="" method="post">
-    Limit:<input name="limit_n" type="number">
-    <input type="submit" name="submit" value="change">
-</form>';
-if(!isset($_POST["limit_n"]))
-$limit_n=10;
-else
-$limit_n=$_POST["limit_n"];
-$sql = "SELECT * FROM nauczyciele LIMIT $limit_n";
+$sql = "SELECT * FROM nauczyciele";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 echo "<table border='1'>";
