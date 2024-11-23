@@ -1,14 +1,16 @@
+<link rel="stylesheet" href="admin-style.css">
+
 <form action="admin/insert_into.php" method="post">
-    <input name="id_k" type="text" required>
-    <input name="id_n" type="text" required>
-    <input name="insert" value="nk" type="hidden">
-    <button type="submit">Dodaj wiersz</button>
+    <input name="id_k" type="text" class="text-input" required>
+    <input name="id_n" type="text" class="text-input" required>
+    <input name="insert" value="nk" type="hidden" class="text-input">
+    <button type="submit" class="presentation">Dodaj wiersz</button>
 </form>
 <form action="admin/delete.php" method="post">
-    <input name="id_k" type="text" required>
-    <input name="id_n" type="text" required>
-    <input name="delete" value="nk" type="hidden">
-    <button type="submit">Usuń wiersz</button>
+    <input name="id_k" type="text" class="text-input" required>
+    <input name="id_n" type="text" class="text-input" required>
+    <input name="delete" value="nk" type="hidden" class="text-input">
+    <button type="submit" class="presentation">Usuń wiersz</button>
 </form>
 <?php
 $sql = "SELECT * FROM widok_nauczyciele_klasa";

@@ -5,6 +5,7 @@ body, html {
     height: 100%;
     font-family: Arial, sans-serif;
     color: #fff;
+    overflow-x: hidden;
   }
 
   .background {
@@ -62,6 +63,7 @@ body, html {
     color:antiquewhite;
     font-size: medium;
     width: 15%;
+    padding: 5px;
 }::-ms-reveal {
     filter: invert(90%);
 }
@@ -75,20 +77,24 @@ body, html {
     color:white;
     font-size: medium;
     width: 15%;
+    padding: 5px;
 }
  
 table {
+    text-align: center;
+    display: flex;
+    justify-content: center;
     border-collapse: collapse;
     width: auto;
-    table-layout: fixed;
     color: antiquewhite;
-    max-height: 80%;
     word-wrap: break-word;
+    border: none;
 }
 
 th, td {
+    width: fit-content;
     text-align: left;
-    padding: 4px;
+    padding: 6px;
 }
 
 .change-classes{
@@ -149,4 +155,46 @@ th, td {
     font-size: large;
     width: 20%;
     padding: 5px;
+}
+
+@media screen and (orientation: portrait) {
+    th, td {
+        text-align: left;
+        padding: 15px;
+        font-size: 150%;
+    }
+
+    .return{
+        font-size: 190%;
+    }
+
+    .return:hover{
+        font-size: 190%;
+    }
+
+    .change-classes{
+        font-size: 170%;
+    }
+
+    .change-classes:hover{    
+        font-size: 170%;
+    }
+
+    .text-input{
+        font-size: 190%;
+    }
+
+    .text-input:hover{
+        font-size: 190%;
+    }
+
+    .presentation{
+        min-width: 270px;
+        font-size: 190%;
+    }
+
+    .presentation:hover{
+        min-width: 270px;
+        font-size: 190%;    
+    }
 }

@@ -31,7 +31,7 @@ if(!isset($_SESSION["Admin"])){
   die("Error connect: " . mysqli_connect_error());
   }
   echo '<form action="admin/update.php" method="post">
-  <h3 style="color: antiquewhite;">Update</h3>
+  <h2 style="color: antiquewhite;">UPDATE</h2>
   <select class="change-classes" name="tables">
   <option value="k">klasa</option>
   <option value="n">nauczyciele</option>
@@ -44,11 +44,11 @@ if(!isset($_SESSION["Admin"])){
   <option value="dw">dni_wolne</option>
   <option value="dn">dni_nauczyciele</option>
   </select>
-  <input type="submit" class="presentation" name="submit" value="update">
+  <input type="submit" class="presentation" name="submit" value="UPDATE">
   </form>';
 
   echo'<br><br><form action="./index.php" method="post">
-      <input type="submit" class="return" name="submit" value="return">
+      <input type="submit" class="return" name="submit" value="RETURN">
   </form>';
 
 
@@ -103,35 +103,6 @@ if(!isset($_SESSION["Admin"])){
     echo "<h3 style='color: antiquewhite;'>sala</h3>";
     include("./admin/sala.php");
   }
-  // echo "<h3>dni_wolne</h3>";
-  // include("./admin/dni_wolne.php");
-
-  // echo "<br><br><h3>nauczyciele_klasa</h3>";
-  // include("./admin/nauczyciele_klasa.php");
-
-  // echo "<br><br><h3>dni_nauczyciele</h3>";
-  // include("./admin/dni_nauczyciele.php");
-
-  // echo "<br><br><h3>nauczyciele_przedmiot</h3>";
-  // include("./admin/nauczyciele_przedmiot.php");
-
-  // echo "<br><br><h3>przedmiot_klasa</h3>";
-  // include("./admin/przedmiot_klasa.php");
-
-  // echo "<br><br><h3>godzina</h3>";
-  // include("./admin/godzina.php");
-
-  // echo "<br><br><h3>klasa</h3>";
-  // include("./admin/klasa.php");
-
-  // echo "<br><br><h3>nauczyciele</h3>";
-  // include("./admin/nauczyciele.php");
-
-  // echo "<br><br><h3>przedmiot</h3>";
-  // include("./admin/przedmiot.php");
-
-  // echo "<br><br><h3>sala</h3>";
-  // include("./admin/sala.php");
 }
 ?></div>
 </body>
