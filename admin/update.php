@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="../CSS/admin-style.css">
+<body class="background">
+<div class="menu-main">
 <?php 
 $host = "localhost";
 $user = "root";
@@ -13,22 +16,22 @@ $table = $_POST["tables"] ?? null;
 
 switch ($table) {
     case 'dn':
-        echo "dni_nauczyciele.php<br>";
+        echo "<h1>dni_nauczyciele.php</h1>";
         echo '<form action="update.php" method="post">
             <label for="old_skrot">Old Teacher Shortcut:</label>
-            <input type="text" name="old_skrot" required>
+            <input type="text" class="text-input" name="old_skrot" required>
             <label for="new_skrot">New Teacher Shortcut:</label>
-            <input type="text" name="new_skrot" required><br>
+            <input type="text" class="text-input" name="new_skrot" required><br>
     
             <label for="old_dni">Old Day:</label>
-            <input type="text" name="old_dni" required>
+            <input type="text" class="text-input" name="old_dni" required>
             <label for="new_dni">New Day:</label>
-            <input type="text" name="new_dni" required><br>
+            <input type="text" class="text-input" name="new_dni" required><br>
     
             <label for="old_godzina">Old Hour:</label>
-            <input type="text" name="old_godzina" required>
+            <input type="text" class="text-input" name="old_godzina" required>
             <label for="new_godzina">New Hour:</label>
-            <input type="text" name="new_godzina" required><br>
+            <input type="text" class="text-input" name="new_godzina" required><br>
     
             <input name="tables" type="hidden" value="dn">
             <input name="update" type="submit" value="Update">
@@ -61,17 +64,17 @@ switch ($table) {
     
 
     case 'dw':
-        echo "dni_wolne.php<br>";
+        echo "<h1>dni_wolne.php</h1>";
         echo '<form action="update.php" method="post">
             <label for="old_numer_k">Old Class Number:</label>
-            <input type="text" name="old_numer_k" required>
+            <input type="text" class="text-input" name="old_numer_k" required>
             <label for="new_numer_k">New Class Number:</label>
-            <input type="text" name="new_numer_k" required><br>
+            <input type="text" class="text-input" name="new_numer_k" required><br>
 
             <label for="old_dni_wolne">Old Day Off:</label>
-            <input type="text" name="old_dni_wolne" required>
+            <input type="text" class="text-input" name="old_dni_wolne" required>
             <label for="new_dni_wolne">New Day Off:</label>
-            <input type="text" name="new_dni_wolne" required><br>
+            <input type="text" class="text-input" name="new_dni_wolne" required><br>
             
             <input name="tables" type="hidden" value="dw">
             <input name="update" type="submit" value="Update">
@@ -101,16 +104,16 @@ switch ($table) {
 
 
     case 'g':
-        echo "godzina.php<br>";
+        echo "<h1>godzina.php</h1>";
         echo '<form action="update.php" method="post">
             <label for="start">Old Start Time:</label>
-            <input type="text" name="start" required>
+            <input type="text" class="text-input" name="start" required>
             <label for="new_start">New Start Time:</label>
-            <input type="text" name="new_start" required><br>
+            <input type="text" class="text-input" name="new_start" required><br>
             <label for="koniec">Old End Time:</label>
-            <input type="text" name="koniec" required>
+            <input type="text" class="text-input" name="koniec" required>
             <label for="new_koniec">New End Time:</label>
-            <input type="text" name="new_koniec" required><br>
+            <input type="text" class="text-input" name="new_koniec" required><br>
             <input name="tables" type="hidden" value="g">
             <input name="update" type="submit" value="Update">
         </form>';
@@ -128,16 +131,16 @@ switch ($table) {
         break;
 
     case 'k':
-        echo "klasa.php<br>";
+        echo "<h1>klasa.php</h1>";
         echo '<form action="update.php" method="post">
             <label for="numer_k">Old Class Number:</label>
-            <input type="text" name="numer_k" required>
+            <input type="text" class="text-input" name="numer_k" required>
             <label for="new_numer_k">New Class Number:</label>
-            <input type="text" name="new_numer_k" required><br>
+            <input type="text" class="text-input" name="new_numer_k" required><br>
             <label for="wychowawca">Old Class Teacher:</label>
-            <input type="text" name="wychowawca" required>
+            <input type="text" class="text-input" name="wychowawca" required>
             <label for="new_wychowawca">New Class Teacher:</label>
-            <input type="text" name="new_wychowawca" required><br>
+            <input type="text" class="text-input" name="new_wychowawca" required><br>
             <input name="tables" type="hidden" value="k">
             <input name="update" type="submit" value="Update">
         </form>';
@@ -154,17 +157,17 @@ switch ($table) {
         break;
 
     case 'nk':
-        echo "nauczyciele_klasa.php<br>";
+        echo "<h1>nauczyciele_klasa.php</h1>";
         echo '<form action="update.php" method="post">
             <label for="old_numer_k">Old Class Number:</label>
-            <input type="text" name="old_numer_k" required>
+            <input type="text" class="text-input" name="old_numer_k" required>
             <label for="new_numer_k">New Class Number:</label>
-            <input type="text" name="new_numer_k" required><br>
+            <input type="text" class="text-input" name="new_numer_k" required><br>
 
             <label for="old_skrot">Old Teacher Shortcut:</label>
-            <input type="text" name="old_skrot" required>
+            <input type="text" class="text-input" name="old_skrot" required>
             <label for="new_skrot">New Teacher Shortcut:</label>
-            <input type="text" name="new_skrot" required><br>
+            <input type="text" class="text-input" name="new_skrot" required><br>
             
             <input name="tables" type="hidden" value="nk">
             <input name="update" type="submit" value="Update">
@@ -205,17 +208,17 @@ switch ($table) {
 
 
     case 'np':
-        echo "nauczyciele_przedmiot.php<br>";
+        echo "<h1>nauczyciele_przedmiot.php</h1>";
         echo '<form action="update.php" method="post">
             <label for="old_skrot">Old Teacher Shortcut:</label>
-            <input type="text" name="old_skrot" required>
+            <input type="text" class="text-input" name="old_skrot" required>
             <label for="new_skrot">New Teacher Shortcut:</label>
-            <input type="text" name="new_skrot" required><br>
+            <input type="text" class="text-input" name="new_skrot" required><br>
 
             <label for="old_nazwa">Old Subject Name:</label>
-            <input type="text" name="old_nazwa" required>
+            <input type="text" class="text-input" name="old_nazwa" required>
             <label for="new_nazwa">New Subject Name:</label>
-            <input type="text" name="new_nazwa" required><br>
+            <input type="text" class="text-input" name="new_nazwa" required><br>
             
             <input name="tables" type="hidden" value="np">
             <input name="update" type="submit" value="Update">
@@ -253,16 +256,16 @@ switch ($table) {
 
 
     case 'n':
-        echo "nauczyciele.php<br>";
+        echo "<h1>nauczyciele.php</h1>";
         echo '<form action="update.php" method="post">
             <label for="old_skrot">Old Shortcut:</label>
-            <input type="text" name="old_skrot" required>
+            <input type="text" class="text-input" name="old_skrot" required>
             <label for="new_skrot">New Shortcut:</label>
-            <input type="text" name="new_skrot" required><br>
+            <input type="text" class="text-input" name="new_skrot" required><br>
             <label for="old_imie_nazwisko">Old Name:</label>
-            <input type="text" name="old_imie_nazwisko" required>
+            <input type="text" class="text-input" name="old_imie_nazwisko" required>
             <label for="new_imie_nazwisko">New Name:</label>
-            <input type="text" name="new_imie_nazwisko" required><br>
+            <input type="text" class="text-input" name="new_imie_nazwisko" required><br>
             <input name="tables" type="hidden" value="n">
             <input name="update" type="submit" value="Update">
         </form>';
@@ -279,27 +282,27 @@ switch ($table) {
         break;
 
     case 'pk':
-        echo "przedmiot_klasa.php<br>";
+        echo "<h1>przedmiot_klasa.php</h1>";
         echo '<form action="update.php" method="post">
             <label for="old_numer_k">Old Class Number:</label>
-            <input type="text" name="old_numer_k" required>
+            <input type="text" class="text-input" name="old_numer_k" required>
             <label for="new_numer_k">New Class Number:</label>
-            <input type="text" name="new_numer_k" required><br>
+            <input type="text" class="text-input" name="new_numer_k" required><br>
 
             <label for="old_nazwa">Old Subject Name:</label>
-            <input type="text" name="old_nazwa" required>
+            <input type="text" class="text-input" name="old_nazwa" required>
             <label for="new_nazwa">New Subject Name:</label>
-            <input type="text" name="new_nazwa" required><br>
+            <input type="text" class="text-input" name="new_nazwa" required><br>
 
             <label for="old_ilosc_godzin">Old Hours:</label>
-            <input type="text" name="old_ilosc_godzin" required>
+            <input type="text" class="text-input" name="old_ilosc_godzin" required>
             <label for="new_ilosc_godzin">New Hours:</label>
-            <input type="text" name="new_ilosc_godzin" required><br>
+            <input type="text" class="text-input" name="new_ilosc_godzin" required><br>
 
             <label for="old_ilosc_grup">Old Number of Grups:</label>
-            <input type="text" name="old_ilosc_grup" required>
+            <input type="text" class="text-input" name="old_ilosc_grup" required>
             <label for="new_ilosc_grup">New Number of Grups:</label>
-            <input type="text" name="new_ilosc_grup" required><br>
+            <input type="text" class="text-input" name="new_ilosc_grup" required><br>
             
             <input name="tables" type="hidden" value="pk">
             <input name="update" type="submit" value="Update">
@@ -344,16 +347,16 @@ switch ($table) {
 
 
     case 'p':
-        echo "przedmiot.php<br>";
+        echo "<h1>przedmiot.php</h1>";
         echo '<form action="update.php" method="post">
             <label for="nazwa">Old Name:</label>
-            <input type="text" name="nazwa" required>
+            <input type="text" class="text-input" name="nazwa" required>
             <label for="new_nazwa">New Name:</label>
-            <input type="text" name="new_nazwa" required><br>
+            <input type="text" class="text-input" name="new_nazwa" required><br>
             <label for="typ">Old Type:</label>
-            <input type="text" name="typ" required>
+            <input type="text" class="text-input" name="typ" required>
             <label for="new_typ">New Type:</label>
-            <input type="text" name="new_typ" required><br>
+            <input type="text" class="text-input" name="new_typ" required><br>
             <input name="tables" type="hidden" value="p">
             <input name="update" type="submit" value="Update">
         </form>';
@@ -370,16 +373,16 @@ switch ($table) {
         break;
 
     case 's':
-        echo "sala.php<br>";
+        echo "<h1>sala.php</h1>";
         echo '<form action="update.php" method="post">
             <label for="nr_sali">Old Room Number:</label>
-            <input type="text" name="nr_sali" required>
+            <input type="text" class="text-input" name="nr_sali" required>
             <label for="new_nr_sali">New Room Number:</label>
-            <input type="text" name="new_nr_sali" required><br>
+            <input type="text" class="text-input" name="new_nr_sali" required><br>
             <label for="typ">Old Type:</label>
-            <input type="text" name="typ" required>
+            <input type="text" class="text-input" name="typ" required>
             <label for="new_typ">New Type:</label>
-            <input type="text" name="new_typ" required><br>
+            <input type="text" class="text-input" name="new_typ" required><br>
             <input name="tables" type="hidden" value="s">
             <input name="update" type="submit" value="Update">
         </form>';
@@ -402,3 +405,4 @@ switch ($table) {
 
 $conn->close();
 ?>
+</div></body>

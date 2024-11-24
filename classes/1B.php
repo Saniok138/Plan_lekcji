@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLAN 1B</title>
-    <link rel="stylesheet" href="./CSS/main-style.css">
+    <link rel="stylesheet" href="../CSS/admin-style.css">
 </head>
 <body class="background">
     <div class="menu-main">

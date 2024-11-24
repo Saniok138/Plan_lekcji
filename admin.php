@@ -48,7 +48,11 @@ if(!isset($_SESSION["Admin"])){
   </form>';
 
   echo'<br><br><form action="./index.php" method="post">
+<<<<<<< Updated upstream
       <input type="submit" class="return" name="submit" value="return">
+=======
+    <input type="submit" name="submit" class="return" value="RETURN">
+>>>>>>> Stashed changes
   </form>';
 
 

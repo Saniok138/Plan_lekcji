@@ -149,4 +149,64 @@ th, td {
     font-size: large;
     width: 20%;
     padding: 5px;
+<<<<<<< Updated upstream
+=======
+}
+
+@media screen and (orientation: portrait) {
+    .menu-main{
+        margin-top: 11%;
+    }
+
+    label{
+        font-size: 190%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 15px;
+        font-size: 150%;
+    }
+
+    .return{
+        font-size: 190%;
+    }
+
+    .return:hover{
+        font-size: 190%;
+    }
+
+    .change-classes{
+        font-size: 170%;
+    }
+
+    .change-classes:hover{    
+        font-size: 170%;
+    }
+
+    .text-input{
+        font-size: 190%;
+    }
+
+    .text-input:hover{
+        font-size: 190%;
+    }
+
+    .presentation{
+        min-width: 270px;
+        font-size: 190%;
+    }
+
+    .presentation:hover{
+        min-width: 270px;
+        font-size: 190%;    
+    }
+
+    .column, .rekord{
+        text-align: left;
+        padding: 5px;
+        font-size: 50%;
+
+    }
+>>>>>>> Stashed changes
 }
