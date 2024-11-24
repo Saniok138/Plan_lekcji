@@ -1,20 +1,22 @@
+<link rel="stylesheet" href="admin-style.css">
+
 <form action="admin/insert_into.php" method="post">
 <?php $sql = "SELECT MAX(id_g) FROM godzina";
     $result = $conn->query($sql);
     $row = mysqli_fetch_assoc($result);
     $result = $row['MAX(id_g)'];?>
-    <input name="id_g" value="<?php echo $result+1; ?>" type="number" readonly>
-    <input name="start" type="text" required>
-    <input name="koniec" type="text" required>
+    <input name="id_g" value="<?php echo $result+1; ?>" type="number" class="text-input" readonly>
+    <input name="start" type="text" class="text-input" required>
+    <input name="koniec" type="text" class="text-input" required>
     <input name="insert" value="g" type="hidden">
-    <button type="submit">Dodaj wiersz</button>
+    <button type="submit"  class="presentation">Dodaj wiersz</button>
 </form>
 <form action="admin/delete.php" method="post">
-    <input name="id_g" type="number" required>
-    <input name="start" type="text" required>
-    <input name="koniec" type="text" required>
+    <input name="id_g" type="number" class="text-input" required>
+    <input name="start" type="text" class="text-input" required>
+    <input name="koniec" type="text" class="text-input" required>
     <input name="delete" value="g" type="hidden">
-    <button type="submit">Usuń wiersz</button>
+    <button type="submit"  class="presentation">Usuń wiersz</button>
 </form>
 <?php
 $sql = "SELECT * FROM godzina";

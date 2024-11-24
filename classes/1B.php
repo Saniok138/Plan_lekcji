@@ -4,10 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLAN 1B</title>
-    <link rel="stylesheet" href="../CSS/admin-style.css">
+    <link rel="stylesheet" href="../CSS/main-style.css">
 </head>
 <body class="background">
     <div class="menu-main">
+        <?php
+            $host = "localhost";
+            $user = "root";
+            $password = "";
+            $database = "plan_lekcji";
+            $conn = mysqli_connect($host, $user, $password, $database);
+            if (!$conn) {
+            die("Error connect: " . mysqli_connect_error());} 
+        ?>
         <table>
             <tr class="column">
                 <td class="rekord">Plan lekcji</td>

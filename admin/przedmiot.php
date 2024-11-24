@@ -1,20 +1,22 @@
+<link rel="stylesheet" href="admin-style.css">
+
 <form action="admin/insert_into.php" method="post">
     <?php $sql = "SELECT MAX(id_p) FROM przedmiot";
     $result = $conn->query($sql);
     $row = mysqli_fetch_assoc($result);
     $result = $row['MAX(id_p)'];?>
-    <input name="id_p" value="<?php echo $result+1; ?>" type="number" readonly>
-    <input name="nazwa" type="text" required>
-    <input name="typ" type="text" required>
+    <input name="id_p" value="<?php echo $result+1; ?>" type="number" class="text-input" readonly>
+    <input name="nazwa" type="text" class="text-input" required>
+    <input name="typ" type="text" class="text-input" required>
     <input name="insert" value="p" type="hidden">
-    <button type="submit">Dodaj wiersz</button>
+    <button type="submit"  class="presentation">Dodaj wiersz</button>
 </form>
 <form action="admin/delete.php" method="post">
-    <input name="id_p" type="number" required>
-    <input name="nazwa" type="text" required>
-    <input name="typ" type="text" required>
+    <input name="id_p" type="number" class="text-input" required>
+    <input name="nazwa" type="text" class="text-input" required>
+    <input name="typ" type="text" class="text-input" required>
     <input name="delete" value="p" type="hidden">
-    <button type="submit">Usuń wiersz</button>
+    <button type="submit"  class="presentation">Usuń wiersz</button>
 </form>
 <?php
 $sql = "SELECT * FROM przedmiot";

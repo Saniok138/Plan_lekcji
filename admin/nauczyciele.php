@@ -1,20 +1,22 @@
+<link rel="stylesheet" href="admin-style.css">
+
 <form action="admin/insert_into.php" method="post">
 <?php $sql = "SELECT MAX(id_n) FROM nauczyciele";
     $result = $conn->query($sql);
     $row = mysqli_fetch_assoc($result);
     $result = $row['MAX(id_n)'];?>
-    <input name="id_n" value="<?php echo $result+1; ?>" type="number" readonly>
-    <input name="skrot" type="text" required>
-    <input name="imie_nazwisko" type="text" required>
+    <input name="id_n" value="<?php echo $result+1; ?>" type="number" class="text-input" readonly>
+    <input name="skrot" type="text" class="text-input" required>
+    <input name="imie_nazwisko" type="text" class="text-input" required>
     <input name="insert" value="n" type="hidden">
-    <button type="submit">Dodaj wiersz</button>
+    <button type="submit"  class="presentation">Dodaj wiersz</button>
 </form>
 <form action="admin/delete.php" method="post">
-    <input name="id_n" type="number" required>
-    <input name="skrot" type="text" required>
-    <input name="imie_nazwisko" type="text" required>
+    <input name="id_n" type="number" class="text-input" required>
+    <input name="skrot" type="text" class="text-input" required>
+    <input name="imie_nazwisko" type="text" class="text-input" required>
     <input name="delete" value="n" type="hidden">
-    <button type="submit">Usuń wiersz</button>
+    <button type="submit"  class="presentation">Usuń wiersz</button>
 </form>
 <?php
 $sql = "SELECT * FROM nauczyciele";

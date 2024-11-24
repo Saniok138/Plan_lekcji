@@ -34,7 +34,7 @@ switch ($table) {
             <input type="text" class="text-input" name="new_godzina" required><br>
     
             <input name="tables" type="hidden" value="dn">
-            <input name="update" type="submit" value="Update">
+            <input name="update" class="return" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
             $old_skrot = $conn->real_escape_string($_POST["old_skrot"]);
@@ -77,7 +77,7 @@ switch ($table) {
             <input type="text" class="text-input" name="new_dni_wolne" required><br>
             
             <input name="tables" type="hidden" value="dw">
-            <input name="update" type="submit" value="Update">
+            <input name="update" class="return" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
             $old_numer_k = $conn->real_escape_string($_POST["old_numer_k"]);
@@ -115,7 +115,7 @@ switch ($table) {
             <label for="new_koniec">New End Time:</label>
             <input type="text" class="text-input" name="new_koniec" required><br>
             <input name="tables" type="hidden" value="g">
-            <input name="update" type="submit" value="Update">
+            <input name="update" class="return" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
             $new_id_g = intval($_POST["new_id_g"]);
@@ -142,7 +142,7 @@ switch ($table) {
             <label for="new_wychowawca">New Class Teacher:</label>
             <input type="text" class="text-input" name="new_wychowawca" required><br>
             <input name="tables" type="hidden" value="k">
-            <input name="update" type="submit" value="Update">
+            <input name="update" class="return" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
             $numer_k = $conn->real_escape_string($_POST["numer_k"]);
@@ -170,7 +170,7 @@ switch ($table) {
             <input type="text" class="text-input" name="new_skrot" required><br>
             
             <input name="tables" type="hidden" value="nk">
-            <input name="update" type="submit" value="Update">
+            <input name="update" class="return" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
             $old_numer_k = $conn->real_escape_string($_POST["old_numer_k"]);
@@ -221,7 +221,7 @@ switch ($table) {
             <input type="text" class="text-input" name="new_nazwa" required><br>
             
             <input name="tables" type="hidden" value="np">
-            <input name="update" type="submit" value="Update">
+            <input name="update" class="return" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
             $old_skrot = $conn->real_escape_string($_POST["old_skrot"]);
@@ -267,7 +267,7 @@ switch ($table) {
             <label for="new_imie_nazwisko">New Name:</label>
             <input type="text" class="text-input" name="new_imie_nazwisko" required><br>
             <input name="tables" type="hidden" value="n">
-            <input name="update" type="submit" value="Update">
+            <input name="update" class="return" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
             $old_skrot = $conn->real_escape_string($_POST["old_skrot"]);
@@ -305,7 +305,7 @@ switch ($table) {
             <input type="text" class="text-input" name="new_ilosc_grup" required><br>
             
             <input name="tables" type="hidden" value="pk">
-            <input name="update" type="submit" value="Update">
+            <input name="update" class="return" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
             $old_numer_k = $conn->real_escape_string($_POST["old_numer_k"]);
@@ -358,7 +358,7 @@ switch ($table) {
             <label for="new_typ">New Type:</label>
             <input type="text" class="text-input" name="new_typ" required><br>
             <input name="tables" type="hidden" value="p">
-            <input name="update" type="submit" value="Update">
+            <input name="update" class="return" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
             $nazwa = $conn->real_escape_string($_POST["nazwa"]);
@@ -384,7 +384,7 @@ switch ($table) {
             <label for="new_typ">New Type:</label>
             <input type="text" class="text-input" name="new_typ" required><br>
             <input name="tables" type="hidden" value="s">
-            <input name="update" type="submit" value="Update">
+            <input name="update" class="return" type="submit" value="Update">
         </form>';
         if (isset($_POST["update"])) {
             $nr_sali = $conn->real_escape_string($_POST["nr_sali"]);

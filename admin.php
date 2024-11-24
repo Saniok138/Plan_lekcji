@@ -44,15 +44,11 @@ if(!isset($_SESSION["Admin"])){
   <option value="dw">dni_wolne</option>
   <option value="dn">dni_nauczyciele</option>
   </select>
-  <input type="submit" class="presentation" name="submit" value="update">
+  <input type="submit" class="presentation" name="submit" value="UPDATE">
   </form>';
 
   echo'<br><br><form action="./index.php" method="post">
-<<<<<<< Updated upstream
-      <input type="submit" class="return" name="submit" value="return">
-=======
     <input type="submit" name="submit" class="return" value="RETURN">
->>>>>>> Stashed changes
   </form>';
 
 

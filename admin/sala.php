@@ -1,24 +1,26 @@
+<link rel="stylesheet" href="admin-style.css">
+
 <form action="admin/insert_into.php" method="post">
 <?php $sql = "SELECT MAX(id_s) FROM sala";
     $result = $conn->query($sql);
     $row = mysqli_fetch_assoc($result);
     $result = $row['MAX(id_s)'];?>
-    <input name="id_s" value="<?php echo $result+1; ?>" type="number" readonly>
-    <input name="numer" type="text" required>
-    <input name="rozmiar" type="number" required>
-    <input name="typ" type="text" required>
-    <input name="wychowawca" type="text">
+    <input name="id_s" value="<?php echo $result+1; ?>" type="number" class="text-input" readonly>
+    <input name="numer" type="text" class="text-input" required>
+    <input name="rozmiar" type="number" class="text-input" required>
+    <input name="typ" type="text" class="text-input" required>
+    <input name="wychowawca" type="text" class="text-input">
     <input name="insert" value="s" type="hidden">
-    <button type="submit">Dodaj wiersz</button>
+    <button type="submit"  class="presentation">Dodaj wiersz</button>
 </form>
 <form action="admin/delete.php" method="post">
-    <input name="id_s" type="number" required>
-    <input name="numer" type="text" required>
-    <input name="rozmiar" type="number" required>
-    <input name="typ" type="text" required>
-    <input name="wychowawca" type="text">
+    <input name="id_s" type="number" class="text-input" required>
+    <input name="numer" type="text" class="text-input" required>
+    <input name="rozmiar" type="number" class="text-input" required>
+    <input name="typ" type="text" class="text-input" required>
+    <input name="wychowawca" type="text" class="text-input">
     <input name="delete" value="s" type="hidden">
-    <button type="submit">Usuń wiersz</button>
+    <button type="submit"  class="presentation">Usuń wiersz</button>
 </form>
 <?php
 $sql = "SELECT * FROM sala";
