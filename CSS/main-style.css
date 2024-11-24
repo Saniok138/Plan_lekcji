@@ -5,7 +5,8 @@
     text-align: center;
     margin: auto;
     width: 70%;
-    padding: 15px;
+    padding: 5px;
+    padding-top: 15px;
 }
 
 select::-webkit-scrollbar {
@@ -36,8 +37,8 @@ select{
 .change-classes{
     background-color: #9625ff;
     border: 4px solid #9c63f8;
-    width: 7%;
-    min-width: 50px;
+    width: 6%;
+    min-width: 60px;
     color: antiquewhite;
     font-size: xx-large;
     border-radius: 10px;
@@ -46,8 +47,8 @@ select{
 .change-classes:hover{
     background-color: #8e48ff;
     border: 4px solid #9c63f8;
-    width: 7%;
-    min-width: 50px;
+    width: 6%;
+    min-width: 60px;
     color: white;
     font-size: xx-large;
     border-radius: 10px;
@@ -80,15 +81,20 @@ select{
 }
 
 table {
+    text-align: center;
+    display: flex;
+    justify-content: center;
     border-collapse: collapse;
     width: auto;
-    table-layout: fixed;
     color: antiquewhite;
+    word-wrap: break-word;
+    border: none;
 }
 
 th, td {
+    width: fit-content;
     text-align: left;
-    padding: 8px;
+    padding: 6px;
 }
 
 .text-input{
@@ -166,6 +172,13 @@ th, td {
     outline: 4px solid #ffffff;
 }
 
+/* .bg-div-main{
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 30px;
+} */
+
 body, html {
     margin: 0;
     padding: 0;
@@ -194,5 +207,11 @@ body, html {
     }
     100% {
       background-position: right top;
+    }
+  }
+
+  @media only screen and (orientation: portrait) {
+    table{
+        font-size: 60%;
     }
   }

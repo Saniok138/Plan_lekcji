@@ -48,7 +48,7 @@ if(!isset($_SESSION["Admin"])){
   </form>';
 
   echo'<br><br><form action="./index.php" method="post">
-      <input type="submit" class="return" name="submit" value="RETURN">
+    <input type="submit" name="submit" class="return" value="RETURN">
   </form>';
 
 

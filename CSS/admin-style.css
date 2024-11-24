@@ -140,12 +140,37 @@ th, td {
     text-align: center;
     min-width: 100px;
     color:antiquewhite;
+    margin-top: 2vh;
     font-size: large;
     width: 20%;
     padding: 5px;
 }
 
 .return:hover{
+    background-color: #8e48ff;
+    border: 3px solid #9c63f8;
+    border-radius: 5px;
+    text-align: center;
+    min-width: 100px;
+    color:white;
+    font-size: large;
+    width: 20%;
+    padding: 5px;
+}
+
+.return-op{
+    background-color: #9625ff;
+    border: 3px solid #9c63f8;
+    border-radius: 5px;
+    text-align: center;
+    min-width: 100px;
+    color:antiquewhite;
+    font-size: large;
+    width: 20%;
+    padding: 5px;
+}
+
+.return-op:hover{
     background-color: #8e48ff;
     border: 3px solid #9c63f8;
     border-radius: 5px;
@@ -165,11 +190,13 @@ th, td {
     }
 
     .return{
-        font-size: 190%;
+        font-size: 220%;
+        width: 25%;
     }
 
     .return:hover{
-        font-size: 190%;
+        font-size: 220%;
+        width: 25%;
     }
 
     .change-classes{
@@ -196,5 +223,11 @@ th, td {
     .presentation:hover{
         min-width: 270px;
         font-size: 190%;    
+    }
+    .column, .rekord{
+        text-align: left;
+        padding: 5px;
+        font-size: 50%;
+
     }
 }
