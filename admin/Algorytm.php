@@ -127,7 +127,7 @@ if(!$pl_id){
         return $s['typ'];
     }
 
-    for ($day = 1; $day <= 2; $day++) {
+    for ($day = 1; $day <= 5; $day++) {
         for ($hour = 1; $hour <= 9; $hour++) {
             foreach ($classes as $class) {
                 $classId = $class['id_k'];
@@ -172,103 +172,13 @@ if(!$pl_id){
             }
         }
     
-    for ($day = 3; $day <= 5; $day++) {
+    for ($day = 1; $day <= 5; $day++) {
         for ($hour = 1; $hour <= 9; $hour++) {
             foreach ($classes as $class) {
                 $classId = $class['id_k'];
                 if($emptyHoursStart[$classId][$day]>=$hour) continue;
                 if($emptyHoursEnd[$classId][$day]<$hour) continue;
                 
-                $freedays = $pdo->query("SELECT dni_wolne FROM dni_wolne WHERE id_k = $classId")->fetch(PDO::FETCH_ASSOC);
-                $freeday = $freedays['dni_wolne'] ?? null;
-                if (!empty($freeday) && $day == $freeday) continue;
-                $stmt = $pdo->prepare("SELECT * FROM przedmiot_klasa WHERE id_k = :id_k");
-                $stmt->execute(['id_k' => $classId]);
-                $subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $group = 1;
-                $numberOfGroups = 1;
-                $groupLabel = "{$group}/{$numberOfGroups}";
-                $subject = getAvailableSubject($subjects, $usedSubjects, $day, $hour, $classId, $numberOfGroups, $group);
-                if($subject){
-                    $teachers = getTeacher($pdo, $classId, $subject);
-                    $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
-                    if(!$teacher){
-                        $teachers = getTeachers($pdo, $classId, $subject);                    
-                        $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
-                    }
-                    $subjectType = getTypes($pdo, $subject);
-                    $room = getAvailableRoom($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
-                    if(!$room){
-                        $room = getAvailableRooms($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
-                    }
-                    if((!$room || !$teacher || !$subject)){
-                        $key = array_search($subject['id_p'], $usedSubjects[$classId][$group][$numberOfGroups]);
-                        if ($key != false) {
-                            unset($usedSubjects[$classId][$group][$amount][$numberOfGroups][$key]);
-                        }
-                    }
-                    if($teacher && $room){
-                        $schedule[] = getSchedule($usedLessons, $idCounter++, $classId, $subject, $groupLabel, $teacher, $room, $hour, $day);
-                    }
-                }
-            }
-        }
-    }
-    
-    for ($day = 4; $day <= 5; $day++) {
-        for ($hour = 1; $hour <= 9; $hour++) {
-            foreach ($classes as $class) {
-                $classId = $class['id_k'];
-                if($emptyHoursStart[$classId][$day]>=$hour) continue;
-                if($emptyHoursEnd[$classId][$day]<$hour) continue;
-                if (isset($usedLessons[$day][$hour][$classId])) continue;                
-                
-                $freedays = $pdo->query("SELECT dni_wolne FROM dni_wolne WHERE id_k = $classId")->fetch(PDO::FETCH_ASSOC);
-                $freeday = $freedays['dni_wolne'] ?? null;
-                if (!empty($freeday) && $day == $freeday) continue;
-                $stmt = $pdo->prepare("SELECT * FROM przedmiot_klasa WHERE id_k = :id_k");
-                $stmt->execute(['id_k' => $classId]);
-                $subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                foreach(range(1,2) as $group){
-                    $numberOfGroups = 2;
-                    $groupLabel = "{$group}/{$numberOfGroups}";
-                    $subject = getAvailableSubject($subjects, $usedSubjects, $day, $hour, $classId, $numberOfGroups, $group);
-                    if(!$subject && ($group == 1 || $group == 2)){
-                        continue;
-                    }else{
-                        $teachers = getTeacher($pdo, $classId, $subject);
-                        $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
-                        if(!$teacher){
-                            $teachers = getTeachers($pdo, $classId, $subject);                    
-                            $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
-                        }
-                        $subjectType = getTypes($pdo, $subject);
-                        $room = getAvailableRoom($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
-                        if(!$room){
-                            $room = getAvailableRooms($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
-                        }
-                        if((!$room || !$teacher || !$subject)){
-                            $key = array_search($subject['id_p'], $usedSubjects[$classId][$group][$numberOfGroups]);
-                            if ($key != false) {
-                                unset($usedSubjects[$classId][$group][$amount][$numberOfGroups][$key]);
-                            }
-                        }
-                    }
-                    if($teacher && $room && $subject)
-                        $schedule[] = getSchedule($usedLessons, $idCounter++, $classId, $subject, $groupLabel, $teacher, $room, $hour, $day);
-                }
-            }
-        }
-    }
-    
-    for ($day = 1; $day <= 2; $day++) {
-        for ($hour = 1; $hour <= 9; $hour++) {
-            foreach ($classes as $class) {                
-                $classId = $class['id_k'];
-                if($emptyHoursStart[$classId][$day]>=$hour) continue;
-                if($emptyHoursEnd[$classId][$day]<$hour) continue;
-                if(isset($usedLessons[$day][$hour][$classId])) continue;
-
                 $freedays = $pdo->query("SELECT dni_wolne FROM dni_wolne WHERE id_k = $classId")->fetch(PDO::FETCH_ASSOC);
                 $freeday = $freedays['dni_wolne'] ?? null;
                 if (!empty($freeday) && $day == $freeday) continue;
