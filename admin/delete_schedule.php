@@ -8,7 +8,7 @@ try {
     $pdo->exec("DELETE FROM `plan_lekcji`");
 
     // Redirect back to the main page with a success message
-    header("Location: ../index.php?message=Schedule cleared successfully.");
+    header("Location: ../index.php");
     exit;
 } catch (PDOException $e) {
     // Handle any errors
