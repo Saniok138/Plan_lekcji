@@ -42,7 +42,6 @@ if(!isset($_SESSION["Admin"])){
   <option value="nk">nauczyciele_klasa</option>
   <option value="np">nauczyciele_przedmiot</option>
   <option value="dw">dni_wolne</option>
-  <option value="dn">dni_nauczyciele</option>
   </select>
   <input type="submit" class="presentation" name="submit" value="UPDATE">
   </form>';

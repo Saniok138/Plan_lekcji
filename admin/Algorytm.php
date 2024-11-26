@@ -321,9 +321,40 @@ if(!$pl_id){
     header("Refresh:1");
 }
 if($pl_id){
-echo "Schedule generated";
-echo '<form method="POST" action="delete_schedule.php" onsubmit="return confirm(\'Are you sure you want to delete all lessons from the schedule?\');">
-    <button type="submit">Clear Schedule</button>
-    </form>';
+    echo "Schedule generated";
+    echo '<form method="POST" action="delete_schedule.php" onsubmit="return confirm(\'Are you sure you want to delete all lessons from the schedule?\');">
+        <button type="submit">Clear Schedule</button>
+        </form>
+        <form method="POST" action="../index.php">
+        <button type="submit">RETURN</button>
+        </form>';
+    try {
+        $sql = "SELECT * FROM widok_plan_lekcji";
+        $stmt = $pdo->query($sql);
+        if ($stmt->rowCount() > 0) {
+            echo "<table border='1'>";
+            $columns = $stmt->columnCount();
+            echo "<tr>";
+            for ($i = 0; $i < $columns; $i++) {
+                $column = $stmt->getColumnMeta($i);
+                echo "<th>" . htmlspecialchars($column['name']) . "</th>";
+            }
+            echo "</tr>";
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                foreach ($row as $data) {
+                    echo "<td>" . htmlspecialchars($data) . "</td>";
+                }
+                echo "</tr>";
+            }
+            
+            echo "</table>";
+        } else {
+            echo "Brak wyników w widoku: widok_plan_lekcji";
+        }
+    } 
+    catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
 }
 ?>
