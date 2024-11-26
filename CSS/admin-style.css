@@ -4,7 +4,7 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
-    color: #fff;
+    color: antiquewhite !important;
     overflow-x: hidden;
   }
 
@@ -92,6 +92,7 @@ table {
 }
 
 th, td {
+    border: antiquewhite 1px solid;
     width: fit-content;
     text-align: left;
     padding: 6px;
@@ -181,6 +182,7 @@ th, td {
     width: 20%;
     padding: 5px;
 }
+
 
 @media screen and (orientation: portrait) {
     th, td {

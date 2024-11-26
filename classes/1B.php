@@ -1,107 +1,79 @@
+<?php
+$class = '1B';
+?>
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLAN 1B</title>
-    <link rel="stylesheet" href="../CSS/main-style.css">
+    <title>PLAN <?php echo $class; ?></title>
+    <link rel="stylesheet" href="./CSS/admin-style.css">
 </head>
+
 <body class="background">
     <div class="menu-main">
         <?php
-            $host = "localhost";
-            $user = "root";
-            $password = "";
-            $database = "plan_lekcji";
-            $conn = mysqli_connect($host, $user, $password, $database);
-            if (!$conn) {
-            die("Error connect: " . mysqli_connect_error());} 
+        $pdo = new PDO('mysql:host=localhost;dbname=plan_lekcji',  'root', '');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT * FROM widok_plan_lekcji WHERE klasa = :class ORDER BY dzien, id_g";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':class', $class, PDO::PARAM_STR);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($results) {
+            $schedule = [];
+            foreach ($results as $row) {
+                $schedule[$row['dzien']][$row['id_g']][] = [
+                    'przedmiot' => $row['przedmiot'],
+                    'grupa' => $row['grupa'],
+                    'nauczyciele' => $row['nauczyciele'],
+                    'sala' => $row['sala']
+                ];
+            }
+
+            echo "<h2>Plan lekcji dla klasy: $class</h2>";
+            echo "<table cellspacing='0>";
+            echo "<tr class='column'><th class='rekord'>Godzina</th>";
+
+            $daysOfWeek = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek'];
+            foreach ($daysOfWeek as $day) {
+                echo "<th class='rekord'>$day</th>";
+            }
+            echo "</tr>";
+
+            for ($hour = 1; $hour <= 9; $hour++) {
+                echo "<tr class='column'>";
+                echo "<td class='rekord'>Lekcja $hour</td>";
+
+                for ($day = 1; $day <= 5; $day++) {
+                    echo "<td class='rekord'>";
+                    if (!empty($schedule[$day][$hour])) {
+                        foreach ($schedule[$day][$hour] as $lesson) {
+                            echo htmlspecialchars($lesson['przedmiot']) . " (Grupa " . htmlspecialchars($lesson['grupa']) . ")<br>";
+                            echo "Nauczyciel: " . htmlspecialchars($lesson['nauczyciele']) . "<br>";
+                            echo "Sala: " . htmlspecialchars($lesson['sala']) . "<br><br>";
+                        }
+                    } else {
+                        echo "—";
+                    }
+                    echo "</td>";
+                }
+
+                echo "</tr>";
+            }
+
+            echo "</table>
+            <form action='../index.php' method='post'>
+                <input type='submit' name='submit' class='return' value='RETURN'>
+            </form>";
+        } else {
+            echo "<p>Brak wyników для класса $class</p>";
+        }
         ?>
-        <table>
-            <tr class="column">
-                <td class="rekord">Plan lekcji</td>
-                <td class="rekord">Pon.</td>
-                <td class="rekord">Wt.</td>
-                <td class="rekord">Sr.</td>
-                <td class="rekord">Czw.</td>
-                <td class="rekord">Pt.</td>
-            </tr>
-            <tr class="column">
-                <td class="rekord">1, 7:45-8:30</td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-            </tr>
-            <tr class="column">
-                <td class="rekord">2, 8:40-9:25</td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-            </tr>
-            <tr class="column">
-                <td class="rekord">3, 9:35-10:20</td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-            </tr>
-            <tr class="column">
-                <td class="rekord">4, 10:35-11:20</td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-            </tr>
-            <tr class="column">
-                <td class="rekord">5, 11:30-12:15</td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-            </tr>
-            <tr class="column">
-                <td class="rekord">6, 12:25-13:10</td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-            </tr>
-            <tr class="column">
-                <td class="rekord">7, 13:20-14:05</td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-            </tr>
-            <tr class="column">
-                <td class="rekord">8, 14:10-14:55</td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-            </tr>
-            <tr class="column">
-                <td class="rekord">9, 15:00-15:45</td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-                <td class="rekord"></td>
-            </tr>
-        </table>
-        <form action="" method="post">
-            <input type="submit" name="exit" class="return" value="RETURN">
-        </form>
     </div>
 </body>
+
 </html>
