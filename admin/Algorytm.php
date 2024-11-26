@@ -178,7 +178,7 @@ if(!$pl_id){
                 $classId = $class['id_k'];
                 if($emptyHoursStart[$classId][$day]>=$hour) continue;
                 if($emptyHoursEnd[$classId][$day]<$hour) continue;
-                
+                if (isset($usedLessons[$day][$hour][$classId])) continue;  
                 $freedays = $pdo->query("SELECT dni_wolne FROM dni_wolne WHERE id_k = $classId")->fetch(PDO::FETCH_ASSOC);
                 $freeday = $freedays['dni_wolne'] ?? null;
                 if (!empty($freeday) && $day == $freeday) continue;
