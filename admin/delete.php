@@ -12,20 +12,6 @@ if (!$conn) {
 $delete = $_POST["delete"] ?? null;
 
 switch ($delete) {
-    case 'dn':
-        echo "dni_nauczyciele.php";
-        $dni = intval($_POST["dni"]);
-        $godzina = intval($_POST["godzina"]);
-        $id_n = $_POST["id_n"];
-          $select = "SELECT id_n FROM nauczyciele where skrot = '$id_n'";
-          $result = $conn->query($select);
-          $row = mysqli_fetch_assoc($result);
-        $id_n = $row['id_n'];
-        $sql = "DELETE FROM dni_nauczyciele where dni=$dni AND godzina=$godzina AND id_n=$id_n";
-        $result = mysqli_query($conn, $sql);
-        header("Location: ../admin.php");
-        exit;
-
     case 'dw':
         echo "dni_wolne.php<br>";
         $id_k = $_POST["id_k"];

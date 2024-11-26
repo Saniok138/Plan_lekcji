@@ -6,20 +6,34 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 $pl_id = $pdo->query("SELECT id FROM plan_lekcji")->fetch(PDO::FETCH_ASSOC);
-
+if(!$pl_id){
     $classes = $pdo->query("SELECT * FROM klasa")->fetchAll(PDO::FETCH_ASSOC);
     $rooms = $pdo->query("SELECT * FROM sala")->fetchAll(PDO::FETCH_ASSOC);
     $hours = $pdo->query("SELECT * FROM godzina")->fetchAll(PDO::FETCH_ASSOC);
     if (empty($classes) || empty($rooms) || empty($hours)) {
         die("Missing necessary data from the database.");
     }    
+    
     $schedule = [];
     $idCounter = 1;
     $usedHours = [];
     $usedRooms = [];
     $usedTeachers = [];
     $usedSubjects = [];
+    $usedLessons = [];
+    $emptyHoursStart = [];
+    $emptyHoursEnd = [];
+
+    for ($day = 1; $day <= 5; $day++) {
+        foreach ($classes as $class) {
+            $classId = $class['id_k'];
+            $emptyHoursStart[$classId][$day] = rand(0, 2);
+            $emptyHoursEnd[$classId][$day] = 9 - rand(0, 2);
+        }
+    }
+
     function getAvailableRoom($rooms, &$usedRooms, $day, $hour, $groupSize, $subjectType) {
+        shuffle($rooms);
         foreach ($rooms as $room) {
             if (empty($usedRooms[$day][$hour]) || !in_array($room['id_s'], $usedRooms[$day][$hour])) {
                 if ($room['rozmiar'] >= $groupSize && ($room['typ'] == $subjectType)) {
@@ -30,7 +44,9 @@ $pl_id = $pdo->query("SELECT id FROM plan_lekcji")->fetch(PDO::FETCH_ASSOC);
         }
         return null;
     }
+
     function getAvailableRooms($rooms, &$usedRooms, $day, $hour, $groupSize, $subjectType) {
+        shuffle($rooms);
         foreach ($rooms as $room) {
             if (empty($usedRooms[$day][$hour]) || !in_array($room['id_s'], $usedRooms[$day][$hour])) {
                 if ($room['rozmiar'] == 2) {
@@ -43,6 +59,7 @@ $pl_id = $pdo->query("SELECT id FROM plan_lekcji")->fetch(PDO::FETCH_ASSOC);
     }
 
     function getAvailableTeacher($teachers, &$usedTeachers, $day, $hour) {
+        shuffle($teachers);
         foreach ($teachers as $teacher) {
             if (empty($usedTeachers[$day][$hour]) || !in_array($teacher['id_n'], $usedTeachers[$day][$hour])) {
                 $usedTeachers[$day][$hour][] = $teacher['id_n'];
@@ -50,49 +67,33 @@ $pl_id = $pdo->query("SELECT id FROM plan_lekcji")->fetch(PDO::FETCH_ASSOC);
             }
         }
         return null;
-    }
-    function getAvailableTeachers($teachers, &$usedTeachers, $day, $hour) {
-        foreach ($teachers as $teacher) {
-            if (empty($usedTeachers[$day][$hour]) || !in_array($teacher['id_n'], $usedTeachers[$day][$hour])) {
-                $usedTeachers[$day][$hour][] = $teacher['id_n'];
-                return $teacher;
-            }
-        }
-        return null;
-    }
+    }    
 
     function getAvailableSubject($subjects, &$usedSubjects, $day, $hour, $classId, $numberOfGroups, $group) {
+        shuffle($subjects);
         foreach ($subjects as $subject) {
-            $numberOfHours = $subject['ilosc_godzin']; // Total allowed hours for this subject
-            $numberOfGroup = $subject['ilosc_grup'];   // Total number of groups for this subject
-            
-            // Check if the subject has not been used yet
+            $numberOfHours = $subject['ilosc_godzin'];
+            $numberOfGroup = $subject['ilosc_grup'];
             if (empty($usedSubjects[$classId][$group][$numberOfGroups]) || 
                 !array_key_exists($subject['id_p'], $usedSubjects[$classId][$group][$numberOfGroups])) {
-                
-                // Assign the subject if the group numbers match
                 if ($numberOfGroup == $numberOfGroups) {               
-                    $usedSubjects[$classId][$group][$numberOfGroups][$subject['id_p']] = [1]; // Initialize with 1 hour
+                    $usedSubjects[$classId][$group][$numberOfGroups][$subject['id_p']] = [1];
                     return $subject;
                 }
             }
-            
-            // If the subject is already used, check if we can still schedule it
             if (isset($usedSubjects[$classId][$group][$numberOfGroups][$subject['id_p']])) {
                 $currentCount = count($usedSubjects[$classId][$group][$numberOfGroups][$subject['id_p']]);
-                
                 if ($numberOfGroup == $numberOfGroups && $currentCount < $numberOfHours) {   
-                    // Increment count by adding another entry for this subject
                     $usedSubjects[$classId][$group][$numberOfGroups][$subject['id_p']][] = 1; 
                     return $subject;
                 }
             }
         }
-        return null; // No available subject found
+        return null;
     }
-    
 
-    function getSchedule($idCounter, $classId, $subject, $groupLabel, $teacher, $room, $hour, $day) {
+    function getSchedule(&$usedLessons, $idCounter, $classId, $subject, $groupLabel, $teacher, $room, $hour, $day) {
+        $usedLessons[$day][$hour][$classId] = true;
         return [ 
             'id' => $idCounter,
             'id_k' => $classId,
@@ -105,20 +106,19 @@ $pl_id = $pdo->query("SELECT id FROM plan_lekcji")->fetch(PDO::FETCH_ASSOC);
         ];
     }
 
-
     function getTeacher($pdo,$classId,$subject) {
         $teacherStmt = $pdo->prepare("SELECT * FROM nauczyciele JOIN nauczyciele_przedmiot ON(nauczyciele.id_n = nauczyciele_przedmiot.id_n) JOIN nauczyciele_klasa ON (nauczyciele.id_n = nauczyciele_klasa.id_n) WHERE nauczyciele_przedmiot.id_p = :id_p AND nauczyciele_klasa.id_k = :id_k");
         $teacherStmt->execute(['id_p' => $subject['id_p'], 'id_k' => $classId]);
         $t = $teacherStmt->fetchAll(PDO::FETCH_ASSOC);
         return $t;
     }
+
     function getTeachers($pdo,$classId,$subject) {
-        $teacherStmt = $pdo->prepare("SELECT * FROM nauczyciele JOIN nauczyciele_przedmiot ON(nauczyciele.id_n = nauczyciele_przedmiot.id_n) JOIN nauczyciele_klasa ON (nauczyciele.id_n = nauczyciele_klasa.id_n) WHERE nauczyciele_przedmiot.id_p = :id_p");
+        $teacherStmt = $pdo->prepare("SELECT * FROM nauczyciele JOIN nauczyciele_przedmiot ON(nauczyciele.id_n = nauczyciele_przedmiot.id_n) WHERE nauczyciele_przedmiot.id_p = :id_p");
         $teacherStmt->execute(['id_p' => $subject['id_p']]);
         $t = $teacherStmt->fetchAll(PDO::FETCH_ASSOC);
         return $t;
     }
-
 
     function getTypes($pdo,$subject) {
         $typeStmt = $pdo->prepare('SELECT typ FROM przedmiot WHERE id_p = :id_p');
@@ -127,15 +127,16 @@ $pl_id = $pdo->query("SELECT id FROM plan_lekcji")->fetch(PDO::FETCH_ASSOC);
         return $s['typ'];
     }
 
-    for ($day = 1; $day <= 5; $day++) {
-        for ($hour = 1; $hour <= 5; $hour++) {
-
+    for ($day = 1; $day <= 2; $day++) {
+        for ($hour = 1; $hour <= 9; $hour++) {
             foreach ($classes as $class) {
                 $classId = $class['id_k'];
+                if($emptyHoursStart[$classId][$day]>=$hour) continue;
+                if($emptyHoursEnd[$classId][$day]<$hour) continue;
+                
                 $freedays = $pdo->query("SELECT dni_wolne FROM dni_wolne WHERE id_k = $classId")->fetch(PDO::FETCH_ASSOC);
-                $freeday = $freedays['dni_wolne'] ?? null;
+                $freeday = $freedays['dni_wolne'] ?? null;                
                 if (!empty($freeday) && $day == $freeday) continue;
-
                 $stmt = $pdo->prepare("SELECT * FROM przedmiot_klasa WHERE id_k = :id_k");
                 $stmt->execute(['id_k' => $classId]);
                 $subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -143,78 +144,162 @@ $pl_id = $pdo->query("SELECT id FROM plan_lekcji")->fetch(PDO::FETCH_ASSOC);
                     $numberOfGroups = 2;
                     $groupLabel = "{$group}/{$numberOfGroups}";
                     $subject = getAvailableSubject($subjects, $usedSubjects, $day, $hour, $classId, $numberOfGroups, $group);
-                    if(!$subject && ($group==1 || $group==2)){
-                    continue;
+                    if(!$subject && ($group == 1 || $group == 2)){
+                        continue;
                     }else{
-                    $teachers = getTeacher($pdo, $classId, $subject);
-                    $teacher = getAvailableTeacher($teachers, $teacherAvailability, $day, $hour);
-                    if(!$teacher){
-                    $teachers = getTeachers($pdo, $classId, $subject);                    
-                    $teacher = getAvailableTeachers($teachers, $teacherAvailability, $day, $hour);
-                    }
-                    $subjectType = getTypes($pdo, $subject);
-                    $room = getAvailableRoom($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
-                    if(!$room){
-                    $room = getAvailableRooms($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
-                    }
-                    if((!$room || !$teacher)){
-                    $key = array_search($subject['id_p'], $usedSubjects[$classId][$group][$numberOfGroups]);
-                    if ($key !== false) {
-                        unset($usedSubjects[$classId][$group][$amount][$numberOfGroups][$key]);
-                    }}
+                        $teachers = getTeacher($pdo, $classId, $subject);
+                        $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
+                        if(!$teacher){
+                            $teachers = getTeachers($pdo, $classId, $subject);                    
+                            $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
+                        }
+                        $subjectType = getTypes($pdo, $subject);
+                        $room = getAvailableRoom($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
+                        if(!$room){
+                            $room = getAvailableRooms($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
+                        }
+                        if((!$room || !$teacher || !$subject)){
+                            $key = array_search($subject['id_p'], $usedSubjects[$classId][$group][$numberOfGroups]);
+                            if ($key != false) {
+                                unset($usedSubjects[$classId][$group][$amount][$numberOfGroups][$key]);
+                            }
+                        }
                     }
                     if($teacher && $room && $subject)
-                    $schedule[] = getSchedule($idCounter++, $classId, $subject, $groupLabel, $teacher, $room, $hour, $day);
+                        $schedule[] = getSchedule($usedLessons, $idCounter++, $classId, $subject, $groupLabel, $teacher, $room, $hour, $day);
                     }
                 }
             }
         }
     
-    echo "<br>";
-    for ($day = 1; $day <= 5; $day++) {
-        for ($hour = 6; $hour <= 9; $hour++) {
-
+    for ($day = 3; $day <= 5; $day++) {
+        for ($hour = 1; $hour <= 9; $hour++) {
             foreach ($classes as $class) {
                 $classId = $class['id_k'];
+                if($emptyHoursStart[$classId][$day]>=$hour) continue;
+                if($emptyHoursEnd[$classId][$day]<$hour) continue;
+                
                 $freedays = $pdo->query("SELECT dni_wolne FROM dni_wolne WHERE id_k = $classId")->fetch(PDO::FETCH_ASSOC);
                 $freeday = $freedays['dni_wolne'] ?? null;
                 if (!empty($freeday) && $day == $freeday) continue;
                 $stmt = $pdo->prepare("SELECT * FROM przedmiot_klasa WHERE id_k = :id_k");
                 $stmt->execute(['id_k' => $classId]);
                 $subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $group=1;
+                $group = 1;
                 $numberOfGroups = 1;
                 $groupLabel = "{$group}/{$numberOfGroups}";
                 $subject = getAvailableSubject($subjects, $usedSubjects, $day, $hour, $classId, $numberOfGroups, $group);
                 if($subject){
                     $teachers = getTeacher($pdo, $classId, $subject);
-                    $teacher = getAvailableTeacher($teachers, $teacherAvailability, $day, $hour);
+                    $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
                     if(!$teacher){
                         $teachers = getTeachers($pdo, $classId, $subject);                    
-                        $teacher = getAvailableTeachers($teachers, $teacherAvailability, $day, $hour);
-                        }
+                        $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
+                    }
                     $subjectType = getTypes($pdo, $subject);
                     $room = getAvailableRoom($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
                     if(!$room){
-                    $room = getAvailableRooms($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
+                        $room = getAvailableRooms($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
                     }
-                    if(!$teacher && $room){
-                        foreach($room as $key => $value) {
-                        echo "$key is at $value<br>";
-                      }}
-                    if($teacher && !$room){
-                      foreach($teacher as $key => $value) {
-                        if($key=='skrot')
-                        echo "$key is at $value<br>";
-                      }}
-                    echo "<br>";
-                    if((!$room || !$teacher)){
-                    $key = array_search($subject['id_p'], $usedSubjects[$classId][$group][$numberOfGroups]);
-                    if ($key !== false) {
-                        unset($usedSubjects[$classId][$group][$amount][$numberOfGroups][$key]);
-                    }}
+                    if((!$room || !$teacher || !$subject)){
+                        $key = array_search($subject['id_p'], $usedSubjects[$classId][$group][$numberOfGroups]);
+                        if ($key != false) {
+                            unset($usedSubjects[$classId][$group][$amount][$numberOfGroups][$key]);
+                        }
+                    }
                     if($teacher && $room){
-                    $schedule[] = getSchedule($idCounter++, $classId, $subject, $groupLabel, $teacher, $room, $hour, $day);}
+                        $schedule[] = getSchedule($usedLessons, $idCounter++, $classId, $subject, $groupLabel, $teacher, $room, $hour, $day);
+                    }
+                }
+            }
+        }
+    }
+    
+    for ($day = 4; $day <= 5; $day++) {
+        for ($hour = 1; $hour <= 9; $hour++) {
+            foreach ($classes as $class) {
+                $classId = $class['id_k'];
+                if($emptyHoursStart[$classId][$day]>=$hour) continue;
+                if($emptyHoursEnd[$classId][$day]<$hour) continue;
+                if (isset($usedLessons[$day][$hour][$classId])) continue;                
+                
+                $freedays = $pdo->query("SELECT dni_wolne FROM dni_wolne WHERE id_k = $classId")->fetch(PDO::FETCH_ASSOC);
+                $freeday = $freedays['dni_wolne'] ?? null;
+                if (!empty($freeday) && $day == $freeday) continue;
+                $stmt = $pdo->prepare("SELECT * FROM przedmiot_klasa WHERE id_k = :id_k");
+                $stmt->execute(['id_k' => $classId]);
+                $subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach(range(1,2) as $group){
+                    $numberOfGroups = 2;
+                    $groupLabel = "{$group}/{$numberOfGroups}";
+                    $subject = getAvailableSubject($subjects, $usedSubjects, $day, $hour, $classId, $numberOfGroups, $group);
+                    if(!$subject && ($group == 1 || $group == 2)){
+                        continue;
+                    }else{
+                        $teachers = getTeacher($pdo, $classId, $subject);
+                        $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
+                        if(!$teacher){
+                            $teachers = getTeachers($pdo, $classId, $subject);                    
+                            $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
+                        }
+                        $subjectType = getTypes($pdo, $subject);
+                        $room = getAvailableRoom($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
+                        if(!$room){
+                            $room = getAvailableRooms($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
+                        }
+                        if((!$room || !$teacher || !$subject)){
+                            $key = array_search($subject['id_p'], $usedSubjects[$classId][$group][$numberOfGroups]);
+                            if ($key != false) {
+                                unset($usedSubjects[$classId][$group][$amount][$numberOfGroups][$key]);
+                            }
+                        }
+                    }
+                    if($teacher && $room && $subject)
+                        $schedule[] = getSchedule($usedLessons, $idCounter++, $classId, $subject, $groupLabel, $teacher, $room, $hour, $day);
+                }
+            }
+        }
+    }
+    
+    for ($day = 1; $day <= 2; $day++) {
+        for ($hour = 1; $hour <= 9; $hour++) {
+            foreach ($classes as $class) {                
+                $classId = $class['id_k'];
+                if($emptyHoursStart[$classId][$day]>=$hour) continue;
+                if($emptyHoursEnd[$classId][$day]<$hour) continue;
+                if(isset($usedLessons[$day][$hour][$classId])) continue;
+
+                $freedays = $pdo->query("SELECT dni_wolne FROM dni_wolne WHERE id_k = $classId")->fetch(PDO::FETCH_ASSOC);
+                $freeday = $freedays['dni_wolne'] ?? null;
+                if (!empty($freeday) && $day == $freeday) continue;
+                $stmt = $pdo->prepare("SELECT * FROM przedmiot_klasa WHERE id_k = :id_k");
+                $stmt->execute(['id_k' => $classId]);
+                $subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $group = 1;
+                $numberOfGroups = 1;
+                $groupLabel = "{$group}/{$numberOfGroups}";
+                $subject = getAvailableSubject($subjects, $usedSubjects, $day, $hour, $classId, $numberOfGroups, $group);
+                if($subject){
+                    $teachers = getTeacher($pdo, $classId, $subject);
+                    $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
+                    if(!$teacher){
+                        $teachers = getTeachers($pdo, $classId, $subject);                    
+                        $teacher = getAvailableTeacher($teachers, $usedTeachers, $day, $hour, $pdo);
+                    }
+                    $subjectType = getTypes($pdo, $subject);
+                    $room = getAvailableRoom($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
+                    if(!$room){
+                        $room = getAvailableRooms($rooms, $usedRooms, $day, $hour, $numberOfGroups, $subjectType);
+                    }
+                    if((!$room || !$teacher || !$subject)){
+                        $key = array_search($subject['id_p'], $usedSubjects[$classId][$group][$numberOfGroups]);
+                        if ($key != false) {
+                            unset($usedSubjects[$classId][$group][$amount][$numberOfGroups][$key]);
+                        }
+                    }
+                    if($teacher && $room){
+                        $schedule[] = getSchedule($usedLessons, $idCounter++, $classId, $subject, $groupLabel, $teacher, $room, $hour, $day);
+                    }
                 }
             }
         }
@@ -232,7 +317,13 @@ $pl_id = $pdo->query("SELECT id FROM plan_lekcji")->fetch(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
         $pdo->rollBack();
         die("Failed to insert schedule: " . $e->getMessage());
-    }
-    
-    echo "Plan lekcji wygenerowany!";
+    }    
+    header("Refresh:1");
+}
+if($pl_id){
+echo "Schedule generated";
+echo '<form method="POST" action="delete_schedule.php" onsubmit="return confirm(\'Are you sure you want to delete all lessons from the schedule?\');">
+    <button type="submit">Clear Schedule</button>
+    </form>';
+}
 ?>

@@ -15,54 +15,6 @@ if (!$conn) {
 $table = $_POST["tables"] ?? null;
 
 switch ($table) {
-    case 'dn':
-        echo "<h1>dni_nauczyciele.php</h1>";
-        echo '<form action="update.php" method="post">
-            <label for="old_skrot">Old Teacher Shortcut:</label>
-            <input type="text" class="text-input" name="old_skrot" required>
-            <label for="new_skrot">New Teacher Shortcut:</label>
-            <input type="text" class="text-input" name="new_skrot" required><br>
-    
-            <label for="old_dni">Old Day:</label>
-            <input type="text" class="text-input" name="old_dni" required>
-            <label for="new_dni">New Day:</label>
-            <input type="text" class="text-input" name="new_dni" required><br>
-    
-            <label for="old_godzina">Old Hour:</label>
-            <input type="text" class="text-input" name="old_godzina" required>
-            <label for="new_godzina">New Hour:</label>
-            <input type="text" class="text-input" name="new_godzina" required><br>
-    
-            <input name="tables" type="hidden" value="dn">
-            <input name="update" class="return" type="submit" value="Update">
-        </form>';
-        if (isset($_POST["update"])) {
-            $old_skrot = $conn->real_escape_string($_POST["old_skrot"]);
-            $new_skrot = $conn->real_escape_string($_POST["new_skrot"]);
-            $old_dni = intval($_POST["old_dni"]);
-            $new_dni = intval($_POST["new_dni"]);
-            $old_godzina = intval($_POST["old_godzina"]);
-            $new_godzina = intval($_POST["new_godzina"]);
-    
-            $select_old_n = "SELECT id_n FROM nauczyciele WHERE skrot='$old_skrot'";
-            $result_old_n = $conn->query($select_old_n);
-            $old_id_n = mysqli_fetch_assoc($result_old_n)['id_n'];
-    
-            $select_new_n = "SELECT id_n FROM nauczyciele WHERE skrot='$new_skrot'";
-            $result_new_n = $conn->query($select_new_n);
-            $new_id_n = mysqli_fetch_assoc($result_new_n)['id_n'];
-    
-            $sql = "UPDATE dni_nauczyciele 
-                    SET id_n=$new_id_n, dni=$new_dni, godzina=$new_godzina 
-                    WHERE id_n=$old_id_n AND dni=$old_dni AND godzina=$old_godzina";
-            mysqli_query($conn, $sql);
-            header("Location: ../admin.php");
-            exit;
-            exit;
-        }
-        break;
-    
-
     case 'dw':
         echo "<h1>dni_wolne.php</h1>";
         echo '<form action="update.php" method="post">
