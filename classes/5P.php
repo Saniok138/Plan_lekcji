@@ -53,8 +53,8 @@ $class = '5P';
                     if (!empty($schedule[$day][$hour])) {
                         foreach ($schedule[$day][$hour] as $lesson) {
                             echo htmlspecialchars($lesson['przedmiot']) . " (Grupa " . htmlspecialchars($lesson['grupa']) . ")<br>";
-                            echo "Nauczyciel: " . htmlspecialchars($lesson['nauczyciele']) . "<br>";
-                            echo "Sala: " . htmlspecialchars($lesson['sala']) . "<br><br>";
+                            echo htmlspecialchars($lesson['nauczyciele']) . "<br>";
+                            echo htmlspecialchars($lesson['sala']) . "<br><br>";
                         }
                     } else {
                         echo "—";

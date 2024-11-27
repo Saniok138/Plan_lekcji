@@ -88,13 +88,13 @@ table {
     width: auto;
     color: antiquewhite;
     word-wrap: break-word;
-    border: none;
 }
 
 th, td {
     width: fit-content;
     text-align: left;
     padding: 6px;
+    border: 2px solid #9c63f8;
 }
 
 .text-input{
@@ -212,6 +212,7 @@ body, html {
 
   @media only screen and (orientation: portrait) {
     table{
-        font-size: 60%;
+        font-size:40%;
+        border: 2px solid #9c63f8;
     }
   }
