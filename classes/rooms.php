@@ -1,5 +1,5 @@
 <?php
-$class = '2F';
+$room = $_POST["room"] ?? 'AA';
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -7,19 +7,19 @@ $class = '2F';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLAN <?php echo $class; ?></title>
-    <link rel="stylesheet" href="./CSS/admin-style.css">
+    <title>PLAN <?php echo $room; ?></title>
+    <link rel="stylesheet" href="../CSS/admin-style.css">
 </head>
 
 <body class="background">
     <div class="menu-main">
         <?php
-        $pdo = new PDO('mysql:host=localhost;dbname=plan_lekcji', 'root', '');
+        $pdo = new PDO('mysql:host=localhost;dbname=plan_lekcji',  'root', '');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = "SELECT * FROM widok_plan_lekcji WHERE klasa = :class ORDER BY dzien, id_g";
+        $sql = "SELECT * FROM widok_plan_lekcji WHERE sala = :class ORDER BY dzien, id_g";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':class', $class, PDO::PARAM_STR);
+        $stmt->bindParam(':class', $room, PDO::PARAM_STR);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -29,12 +29,12 @@ $class = '2F';
                 $schedule[$row['dzien']][$row['id_g']][] = [
                     'przedmiot' => $row['przedmiot'],
                     'grupa' => $row['grupa'],
-                    'nauczyciele' => $row['nauczyciele'],
-                    'sala' => $row['sala']
+                    'klasa' => $row['klasa'],
+                    'nauczyciele' => $row['nauczyciele']
                 ];
             }
 
-            echo "<h2>Plan lekcji dla klasy: $class</h2>";
+            echo "<h2>Plan lekcji dla klasy: $room</h2>";
             echo "<table cellspacing='0>";
             echo "<tr class='column'><th class='rekord'>Godzina</th>";
 
@@ -56,8 +56,28 @@ $class = '2F';
                             echo htmlspecialchars($lesson['przedmiot']) . " ";
                             else
                             echo htmlspecialchars($lesson['przedmiot']) . "-" . htmlspecialchars($lesson['grupa']) . " ";
-                            echo htmlspecialchars($lesson['nauczyciele']) . " ";
-                            echo htmlspecialchars($lesson['sala']) . "<br>";
+                            echo "<form style='display: inline;' method='post' action='../classes/classes.php'><button type='submit' name='class' value='" . htmlspecialchars($lesson['klasa']) . "' 
+                                style='
+                                    background: none; 
+                                    border: none; 
+                                    color: inherit; 
+                                    font: inherit; 
+                                    cursor: pointer; 
+                                    padding: 0;
+                                '>" . 
+                                htmlspecialchars($lesson['klasa']) . 
+                            "</button></form> ";
+                            echo "<form style='display: inline;' method='post' action='../classes/teachers.php'><button type='submit' name='teacher' value='" . htmlspecialchars($lesson['nauczyciele']) . "' 
+                                style='
+                                    background: none; 
+                                    border: none; 
+                                    color: inherit; 
+                                    font: inherit; 
+                                    cursor: pointer; 
+                                    padding: 0;
+                                '>" . 
+                                htmlspecialchars($lesson['nauczyciele']) . 
+                            "</button></form><br>";
                         }
                     } else {
                         echo "—";
@@ -73,7 +93,7 @@ $class = '2F';
                 <input type='submit' name='submit' class='return' value='RETURN'>
             </form>";
         } else {
-            echo "<p>Brak wyników для класса $class</p>";
+            echo "<p>Brak wyników для класса $room</p>";
         }
         ?>
     </div>
