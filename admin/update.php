@@ -30,6 +30,9 @@ switch ($table) {
             
             <input name="tables" type="hidden" value="dw">
             <input name="update" class="return" type="submit" value="Update">
+        </form>
+        <form action="../admin.php" method="post">
+            <input type="submit" name="submit" class="return" value="RETURN">
         </form>';
         if (isset($_POST["update"])) {
             $old_numer_k = $conn->real_escape_string($_POST["old_numer_k"]);
@@ -68,6 +71,9 @@ switch ($table) {
             <input type="text" class="text-input" name="new_koniec" required><br>
             <input name="tables" type="hidden" value="g">
             <input name="update" class="return" type="submit" value="Update">
+        </form>
+        <form action="../admin.php" method="post">
+            <input type="submit" name="submit" class="return" value="RETURN">
         </form>';
         if (isset($_POST["update"])) {
             $new_id_g = intval($_POST["new_id_g"]);
@@ -95,6 +101,9 @@ switch ($table) {
             <input type="text" class="text-input" name="new_wychowawca" required><br>
             <input name="tables" type="hidden" value="k">
             <input name="update" class="return" type="submit" value="Update">
+        </form>
+        <form action="../admin.php" method="post">
+            <input type="submit" name="submit" class="return" value="RETURN">
         </form>';
         if (isset($_POST["update"])) {
             $numer_k = $conn->real_escape_string($_POST["numer_k"]);
@@ -123,6 +132,9 @@ switch ($table) {
             
             <input name="tables" type="hidden" value="nk">
             <input name="update" class="return" type="submit" value="Update">
+        </form>
+        <form action="../admin.php" method="post">
+            <input type="submit" name="submit" class="return" value="RETURN">
         </form>';
         if (isset($_POST["update"])) {
             $old_numer_k = $conn->real_escape_string($_POST["old_numer_k"]);
@@ -174,6 +186,9 @@ switch ($table) {
             
             <input name="tables" type="hidden" value="np">
             <input name="update" class="return" type="submit" value="Update">
+        </form>
+        <form action="../admin.php" method="post">
+            <input type="submit" name="submit" class="return" value="RETURN">
         </form>';
         if (isset($_POST["update"])) {
             $old_skrot = $conn->real_escape_string($_POST["old_skrot"]);
@@ -220,6 +235,9 @@ switch ($table) {
             <input type="text" class="text-input" name="new_imie_nazwisko" required><br>
             <input name="tables" type="hidden" value="n">
             <input name="update" class="return" type="submit" value="Update">
+        </form>
+        <form action="../admin.php" method="post">
+            <input type="submit" name="submit" class="return" value="RETURN">
         </form>';
         if (isset($_POST["update"])) {
             $old_skrot = $conn->real_escape_string($_POST["old_skrot"]);
@@ -258,6 +276,9 @@ switch ($table) {
             
             <input name="tables" type="hidden" value="pk">
             <input name="update" class="return" type="submit" value="Update">
+        </form>
+        <form action="../admin.php" method="post">
+            <input type="submit" name="submit" class="return" value="RETURN">
         </form>';
         if (isset($_POST["update"])) {
             $old_numer_k = $conn->real_escape_string($_POST["old_numer_k"]);
@@ -311,6 +332,9 @@ switch ($table) {
             <input type="text" class="text-input" name="new_typ" required><br>
             <input name="tables" type="hidden" value="p">
             <input name="update" class="return" type="submit" value="Update">
+        </form>
+        <form action="../admin.php" method="post">
+            <input type="submit" name="submit" class="return" value="RETURN">
         </form>';
         if (isset($_POST["update"])) {
             $nazwa = $conn->real_escape_string($_POST["nazwa"]);
@@ -337,6 +361,9 @@ switch ($table) {
             <input type="text" class="text-input" name="new_typ" required><br>
             <input name="tables" type="hidden" value="s">
             <input name="update" class="return" type="submit" value="Update">
+        </form>
+        <form action="../admin.php" method="post">
+            <input type="submit" name="submit" class="return" value="RETURN">
         </form>';
         if (isset($_POST["update"])) {
             $nr_sali = $conn->real_escape_string($_POST["nr_sali"]);
