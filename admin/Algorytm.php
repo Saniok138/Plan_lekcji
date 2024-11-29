@@ -28,7 +28,7 @@ if(!$pl_id){
         foreach ($classes as $class) {
             $classId = $class['id_k'];
             $emptyHoursStart[$classId][$day] = rand(0, 2);
-            $emptyHoursEnd[$classId][$day] = 9 - rand(0, 2);
+            $emptyHoursEnd[$classId][$day] = 9 - rand(0, 1);
         }
     }
 
