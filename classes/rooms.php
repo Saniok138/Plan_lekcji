@@ -34,7 +34,7 @@ $room = $_POST["room"] ?? 'AA';
                 ];
             }
 
-            echo "<h2>Plan lekcji dla klasy: $room</h2>";
+            echo "<h2>Plan lekcji dla sali: $room</h2>";
             echo "<table cellspacing='0>";
             echo "<tr class='column'><th class='rekord'>Godzina</th>";
 
@@ -93,7 +93,7 @@ $room = $_POST["room"] ?? 'AA';
                 <input type='submit' name='submit' class='return' value='RETURN'>
             </form>";
         } else {
-            echo "<p>Brak wyników для класса $room</p>";
+            echo "<p>Brak wyników для sali $room</p>";
         }
         ?>
     </div>

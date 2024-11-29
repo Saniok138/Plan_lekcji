@@ -33,8 +33,13 @@ $teacher = $_POST["teacher"] ?? 'AA';
                     'sala' => $row['sala']
                 ];
             }
-
-            echo "<h2>Plan lekcji dla klasy: $teacher</h2>";
+            $sql = "SELECT * FROM nauczyciele WHERE skrot = :class";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':class', $teacher, PDO::PARAM_STR);
+            $stmt->execute();
+            $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
+            $teacher = $teacher['imie_nazwisko'];
+            echo "<h2>Plan lekcji dla nauczycielia: $teacher</h2>";
             echo "<table cellspacing='0>";
             echo "<tr class='column'><th class='rekord'>Godzina</th>";
 
@@ -93,7 +98,7 @@ $teacher = $_POST["teacher"] ?? 'AA';
                 <input type='submit' name='submit' class='return' value='RETURN'>
             </form>";
         } else {
-            echo "<p>Brak wyników для класса $teacher</p>";
+            echo "<p>Brak wyników для nauczciela $teacher</p>";
         }
         ?>
     </div>

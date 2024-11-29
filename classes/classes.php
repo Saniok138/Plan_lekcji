@@ -98,7 +98,7 @@ $class = $selected_option ?? '1B';}
                 <input type='submit' name='submit' class='return' value='RETURN'>
             </form>";
         } else {
-            echo "<p>Brak wyników для класса $class</p>";
+            echo "<p>Brak wyników dla klasy $class</p>";
         }
         ?>
     </div>
