@@ -242,7 +242,7 @@ if(!$pl_id){
 if($pl_id){
     echo "Schedule generated";
     echo '<form method="POST" action="delete_schedule.php" onsubmit="return confirm(\'Are you sure you want to delete all lessons from the schedule?\');">
-        <button class="presentation"type="submit">Clear Schedule</button>
+        <button class="return"type="submit">Clear Schedule</button>
         </form>
         <form method="POST" action="../index.php">
         <button class="return" type="submit">RETURN</button>
