@@ -93,13 +93,13 @@ $class = $selected_option ?? '1B';}
                 echo "</tr>";
             }
 
-            echo "</table>
-            <form action='../index.php' method='post'>
-                <input type='submit' name='submit' class='return' value='RETURN'>
-            </form>";
+            echo "</table>";
         } else {
             echo "<p>Brak wyników dla klasy $class</p>";
         }
+        echo "<form action='../index.php' method='post'>
+                <input type='submit' name='submit' class='return' value='RETURN'>
+            </form>";
         ?>
     </div>
 </body>

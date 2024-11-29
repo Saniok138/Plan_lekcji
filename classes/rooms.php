@@ -88,13 +88,13 @@ $room = $_POST["room"] ?? 'AA';
                 echo "</tr>";
             }
 
-            echo "</table>
-            <form action='../index.php' method='post'>
-                <input type='submit' name='submit' class='return' value='RETURN'>
-            </form>";
+            echo "</table>";
         } else {
             echo "<p>Brak wyników для sali $room</p>";
         }
+        echo "<form action='../index.php' method='post'>
+                <input type='submit' name='submit' class='return' value='RETURN'>
+            </form>";
         ?>
     </div>
 </body>

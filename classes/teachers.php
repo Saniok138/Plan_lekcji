@@ -93,13 +93,13 @@ $teacher = $_POST["teacher"] ?? 'AA';
                 echo "</tr>";
             }
 
-            echo "</table>
-            <form action='../index.php' method='post'>
-                <input type='submit' name='submit' class='return' value='RETURN'>
-            </form>";
+            echo "</table>";
         } else {
             echo "<p>Brak wyników для nauczciela $teacher</p>";
         }
+        echo "<form action='../index.php' method='post'>
+                <input type='submit' name='submit' class='return' value='RETURN'>
+            </form>";
         ?>
     </div>
 </body>
