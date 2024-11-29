@@ -65,6 +65,7 @@ select{
     font-size: large;
     width: 20%;
     padding: 5px;
+    margin-bottom: 3%;
 }
 
 .return:hover{
@@ -78,6 +79,7 @@ select{
     font-size: large;
     width: 20%;
     padding: 5px;
+    margin-bottom: 3%;
 }
 
 table {
@@ -93,7 +95,7 @@ table {
 th, td {
     width: fit-content;
     text-align: left;
-    padding: 6px;
+    padding: 5px;
     border: 2px solid #9c63f8;
 }
 
@@ -212,7 +214,9 @@ body, html {
 
   @media only screen and (orientation: portrait) {
     table{
-        font-size:40%;
-        border: 2px solid #9c63f8;
+        font-size:35%;
+    }
+    td, th{
+        padding: 3px;
     }
   }

@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/main-style.css">
+</head>
+<body class="background">
+    <div class="menu-main">
 <?php
 try {
     $pdo = new PDO('mysql:host=localhost;dbname=plan_lekcji', 'root', '');
@@ -233,16 +242,16 @@ if(!$pl_id){
 if($pl_id){
     echo "Schedule generated";
     echo '<form method="POST" action="delete_schedule.php" onsubmit="return confirm(\'Are you sure you want to delete all lessons from the schedule?\');">
-        <button type="submit">Clear Schedule</button>
+        <button class="presentation"type="submit">Clear Schedule</button>
         </form>
         <form method="POST" action="../index.php">
-        <button type="submit">RETURN</button>
+        <button class="return" type="submit">RETURN</button>
         </form>';
     try {
         $sql = "SELECT * FROM widok_plan_lekcji";
         $stmt = $pdo->query($sql);
         if ($stmt->rowCount() > 0) {
-            echo "<table border='1'>";
+            echo "<table>";
             $columns = $stmt->columnCount();
             echo "<tr>";
             for ($i = 0; $i < $columns; $i++) {
@@ -267,4 +276,7 @@ if($pl_id){
         echo "Error: " . $e->getMessage();
     }
 }
-?>
+?></div>
+</body>
+</html>
+
