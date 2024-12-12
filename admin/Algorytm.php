@@ -33,13 +33,25 @@ if(!$pl_id){
     $emptyHoursStart = [];
     $emptyHoursEnd = [];
 
-    for ($day = 1; $day <= 5; $day++) {
-        foreach ($classes as $class) {
-            $classId = $class['id_k'];
-            $emptyHoursStart[$classId][$day] = rand(0, 2);
-            $emptyHoursEnd[$classId][$day] = 9 - rand(0, 1);
-        }
+    foreach ($classes as $class) {
+        $classId = $class['id_k'];
+        $numberStmt = $pdo->prepare('SELECT SUM(ilosc_godzin) as suma FROM `przedmiot_klasa` WHERE id_k=:id_k GROUP BY id_k;');
+        $numberStmt->execute(['id_k' => $classId]);
+        $sum = $numberStmt->fetch(PDO::FETCH_ASSOC);
+        $sum = $sum['suma'];
+        
+        $maxHours = $sum;
+        $totalHours = 0;
+        do {
+            $totalHours = 0;
+            for ($day = 1; $day <= 5; $day++) {
+                $emptyHoursStart[$classId][$day] = rand(0, 2);
+                $emptyHoursEnd[$classId][$day] = 9 - rand(0, 1);
+                $totalHours += ($emptyHoursEnd[$classId][$day]-$emptyHoursStart[$classId][$day]);
+            }
+        } while ($totalHours < $maxHours);
     }
+    
 
     function getAvailableRoom($rooms, &$usedRooms, $day, $hour, $groupSize, $subjectType) {
         shuffle($rooms);
